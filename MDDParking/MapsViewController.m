@@ -110,6 +110,7 @@
   
   
   PlaceDetailViewController *placeDetailViewController = [[PlaceDetailViewController alloc] initWithNibName:@"PlaceDetailViewController" bundle:nil];
+  placeDetailViewController.delegate = self.delegate;
   placeDetailViewController.parkingSpotObj = parkingSpot;
   [self.navigationController pushViewController:placeDetailViewController animated:YES];
 }
