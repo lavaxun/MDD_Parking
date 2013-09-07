@@ -39,10 +39,19 @@
 		5A56FE9A17DB1F28002C0B50 /* MapsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A56FE8D17DB1F28002C0B50 /* MapsViewController.xib */; };
 		5A56FE9B17DB1F28002C0B50 /* PlaceDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A56FE8F17DB1F28002C0B50 /* PlaceDetailViewController.m */; };
 		5A56FE9C17DB1F28002C0B50 /* PlaceDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A56FE9017DB1F28002C0B50 /* PlaceDetailViewController.xib */; };
-		5A56FE9D17DB1F28002C0B50 /* AddMarkerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A56FE9217DB1F28002C0B50 /* AddMarkerViewController.m */; };
-		5A56FE9E17DB1F28002C0B50 /* AddMarkerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A56FE9317DB1F28002C0B50 /* AddMarkerViewController.xib */; };
 		5A56FE9F17DB1F28002C0B50 /* AddNewPlaceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A56FE9517DB1F28002C0B50 /* AddNewPlaceViewController.m */; };
 		5A56FEA017DB1F28002C0B50 /* AddNewPlaceViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A56FE9617DB1F28002C0B50 /* AddNewPlaceViewController.xib */; };
+		A1785E3717DB347B0044CC5A /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1785E3617DB347B0044CC5A /* QuartzCore.framework */; };
+		A1785E4217DB34A60044CC5A /* DDAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = A1785E3917DB34A50044CC5A /* DDAnnotation.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		A1785E4317DB34A60044CC5A /* DDAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = A1785E3B17DB34A60044CC5A /* DDAnnotationView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		A1785E4417DB34A60044CC5A /* Pin.png in Resources */ = {isa = PBXBuildFile; fileRef = A1785E3C17DB34A60044CC5A /* Pin.png */; };
+		A1785E4517DB34A60044CC5A /* PinDown1.png in Resources */ = {isa = PBXBuildFile; fileRef = A1785E3D17DB34A60044CC5A /* PinDown1.png */; };
+		A1785E4617DB34A60044CC5A /* PinDown2.png in Resources */ = {isa = PBXBuildFile; fileRef = A1785E3E17DB34A60044CC5A /* PinDown2.png */; };
+		A1785E4717DB34A60044CC5A /* PinDown3.png in Resources */ = {isa = PBXBuildFile; fileRef = A1785E3F17DB34A60044CC5A /* PinDown3.png */; };
+		A1785E4817DB34A60044CC5A /* PinFloating.png in Resources */ = {isa = PBXBuildFile; fileRef = A1785E4017DB34A60044CC5A /* PinFloating.png */; };
+		A1785E4917DB34A60044CC5A /* PinShadow.png in Resources */ = {isa = PBXBuildFile; fileRef = A1785E4117DB34A60044CC5A /* PinShadow.png */; };
+		A1785E4D17DB351D0044CC5A /* AddMarkerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A1785E4B17DB351D0044CC5A /* AddMarkerViewController.m */; };
+		A1785E4E17DB351D0044CC5A /* AddMarkerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A1785E4C17DB351D0044CC5A /* AddMarkerViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -99,12 +108,23 @@
 		5A56FE8E17DB1F28002C0B50 /* PlaceDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaceDetailViewController.h; sourceTree = "<group>"; };
 		5A56FE8F17DB1F28002C0B50 /* PlaceDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaceDetailViewController.m; sourceTree = "<group>"; };
 		5A56FE9017DB1F28002C0B50 /* PlaceDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlaceDetailViewController.xib; sourceTree = "<group>"; };
-		5A56FE9117DB1F28002C0B50 /* AddMarkerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddMarkerViewController.h; sourceTree = "<group>"; };
-		5A56FE9217DB1F28002C0B50 /* AddMarkerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddMarkerViewController.m; sourceTree = "<group>"; };
-		5A56FE9317DB1F28002C0B50 /* AddMarkerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddMarkerViewController.xib; sourceTree = "<group>"; };
 		5A56FE9417DB1F28002C0B50 /* AddNewPlaceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddNewPlaceViewController.h; sourceTree = "<group>"; };
 		5A56FE9517DB1F28002C0B50 /* AddNewPlaceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddNewPlaceViewController.m; sourceTree = "<group>"; };
 		5A56FE9617DB1F28002C0B50 /* AddNewPlaceViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddNewPlaceViewController.xib; sourceTree = "<group>"; };
+		A1785E3617DB347B0044CC5A /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		A1785E3817DB34A50044CC5A /* DDAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDAnnotation.h; sourceTree = "<group>"; };
+		A1785E3917DB34A50044CC5A /* DDAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDAnnotation.m; sourceTree = "<group>"; };
+		A1785E3A17DB34A50044CC5A /* DDAnnotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDAnnotationView.h; sourceTree = "<group>"; };
+		A1785E3B17DB34A60044CC5A /* DDAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDAnnotationView.m; sourceTree = "<group>"; };
+		A1785E3C17DB34A60044CC5A /* Pin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Pin.png; sourceTree = "<group>"; };
+		A1785E3D17DB34A60044CC5A /* PinDown1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PinDown1.png; sourceTree = "<group>"; };
+		A1785E3E17DB34A60044CC5A /* PinDown2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PinDown2.png; sourceTree = "<group>"; };
+		A1785E3F17DB34A60044CC5A /* PinDown3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PinDown3.png; sourceTree = "<group>"; };
+		A1785E4017DB34A60044CC5A /* PinFloating.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PinFloating.png; sourceTree = "<group>"; };
+		A1785E4117DB34A60044CC5A /* PinShadow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PinShadow.png; sourceTree = "<group>"; };
+		A1785E4A17DB351D0044CC5A /* AddMarkerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddMarkerViewController.h; sourceTree = "<group>"; };
+		A1785E4B17DB351D0044CC5A /* AddMarkerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddMarkerViewController.m; sourceTree = "<group>"; };
+		A1785E4C17DB351D0044CC5A /* AddMarkerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddMarkerViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +132,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A1785E3717DB347B0044CC5A /* QuartzCore.framework in Frameworks */,
 				5A56FE5D17DB1ED9002C0B50 /* MapKit.framework in Frameworks */,
 				5A56FE5B17DB1ED3002C0B50 /* Security.framework in Frameworks */,
 				5A56FE5917DB1ECD002C0B50 /* CoreLocation.framework in Frameworks */,
@@ -127,6 +148,16 @@
 		5A3FFBCF17DB24B300C4386A /* AnnotationView */ = {
 			isa = PBXGroup;
 			children = (
+				A1785E3817DB34A50044CC5A /* DDAnnotation.h */,
+				A1785E3917DB34A50044CC5A /* DDAnnotation.m */,
+				A1785E3A17DB34A50044CC5A /* DDAnnotationView.h */,
+				A1785E3B17DB34A60044CC5A /* DDAnnotationView.m */,
+				A1785E3C17DB34A60044CC5A /* Pin.png */,
+				A1785E3D17DB34A60044CC5A /* PinDown1.png */,
+				A1785E3E17DB34A60044CC5A /* PinDown2.png */,
+				A1785E3F17DB34A60044CC5A /* PinDown3.png */,
+				A1785E4017DB34A60044CC5A /* PinFloating.png */,
+				A1785E4117DB34A60044CC5A /* PinShadow.png */,
 			);
 			name = AnnotationView;
 			sourceTree = "<group>";
@@ -134,6 +165,7 @@
 		5A56FE2317DB1EB8002C0B50 = {
 			isa = PBXGroup;
 			children = (
+				A1785E3617DB347B0044CC5A /* QuartzCore.framework */,
 				5A56FE5C17DB1ED9002C0B50 /* MapKit.framework */,
 				5A56FE5A17DB1ED3002C0B50 /* Security.framework */,
 				5A56FE5817DB1ECD002C0B50 /* CoreLocation.framework */,
@@ -180,9 +212,9 @@
 				5A56FE8E17DB1F28002C0B50 /* PlaceDetailViewController.h */,
 				5A56FE8F17DB1F28002C0B50 /* PlaceDetailViewController.m */,
 				5A56FE9017DB1F28002C0B50 /* PlaceDetailViewController.xib */,
-				5A56FE9117DB1F28002C0B50 /* AddMarkerViewController.h */,
-				5A56FE9217DB1F28002C0B50 /* AddMarkerViewController.m */,
-				5A56FE9317DB1F28002C0B50 /* AddMarkerViewController.xib */,
+				A1785E4A17DB351D0044CC5A /* AddMarkerViewController.h */,
+				A1785E4B17DB351D0044CC5A /* AddMarkerViewController.m */,
+				A1785E4C17DB351D0044CC5A /* AddMarkerViewController.xib */,
 				5A56FE9417DB1F28002C0B50 /* AddNewPlaceViewController.h */,
 				5A56FE9517DB1F28002C0B50 /* AddNewPlaceViewController.m */,
 				5A56FE9617DB1F28002C0B50 /* AddNewPlaceViewController.xib */,
@@ -320,8 +352,14 @@
 				5A56FE9817DB1F28002C0B50 /* PlacesViewController.xib in Resources */,
 				5A56FE9A17DB1F28002C0B50 /* MapsViewController.xib in Resources */,
 				5A56FE9C17DB1F28002C0B50 /* PlaceDetailViewController.xib in Resources */,
-				5A56FE9E17DB1F28002C0B50 /* AddMarkerViewController.xib in Resources */,
 				5A56FEA017DB1F28002C0B50 /* AddNewPlaceViewController.xib in Resources */,
+				A1785E4417DB34A60044CC5A /* Pin.png in Resources */,
+				A1785E4517DB34A60044CC5A /* PinDown1.png in Resources */,
+				A1785E4617DB34A60044CC5A /* PinDown2.png in Resources */,
+				A1785E4717DB34A60044CC5A /* PinDown3.png in Resources */,
+				A1785E4817DB34A60044CC5A /* PinFloating.png in Resources */,
+				A1785E4917DB34A60044CC5A /* PinShadow.png in Resources */,
+				A1785E4E17DB351D0044CC5A /* AddMarkerViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -350,8 +388,10 @@
 				5A56FE9717DB1F28002C0B50 /* PlacesViewController.m in Sources */,
 				5A56FE9917DB1F28002C0B50 /* MapsViewController.m in Sources */,
 				5A56FE9B17DB1F28002C0B50 /* PlaceDetailViewController.m in Sources */,
-				5A56FE9D17DB1F28002C0B50 /* AddMarkerViewController.m in Sources */,
 				5A56FE9F17DB1F28002C0B50 /* AddNewPlaceViewController.m in Sources */,
+				A1785E4217DB34A60044CC5A /* DDAnnotation.m in Sources */,
+				A1785E4317DB34A60044CC5A /* DDAnnotationView.m in Sources */,
+				A1785E4D17DB351D0044CC5A /* AddMarkerViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
