@@ -10,7 +10,7 @@
 #import <CoreLocation/CoreLocation.h>
 #import <MapKit/MapKit.h>
 #import "DDAnnotation.h"
-#import "DDAnnotationView.h"
+#import "MDDAnnotation.h"
 #import "PlaceDetailViewController.h"
 
 @interface MapsViewController ()
@@ -71,12 +71,14 @@
 	
 	
 	
-	// -------------- add draggble pin on to the map
-	_annotation = [[DDAnnotation alloc] initWithCoordinate:coordinate addressDictionary:nil];
-	_annotation.title = @"Parking Spot";
-	_annotation.subtitle = [NSString	stringWithFormat:@"%f %f", _annotation.coordinate.latitude, _annotation.coordinate.longitude];
-	
-	[self.aMapView addAnnotation:_annotation];
+	if(0){
+		// -------------- add draggble pin on to the map
+		_annotation = [[DDAnnotation alloc] initWithCoordinate:coordinate addressDictionary:nil];
+		_annotation.title = @"Parking Spot";
+		_annotation.subtitle = [NSString	stringWithFormat:@"%f %f", _annotation.coordinate.latitude, _annotation.coordinate.longitude];
+		
+		[self.aMapView addAnnotation:_annotation];
+	}
 	  
   } else {
 	NSLog(@"Inside else");
@@ -88,32 +90,34 @@
 #pragma mark Add Parking Spots to Map
 
 
--(void)addSurroundingPins:(CLLocationCoordinate2D)coordinate{
-  
-  for(int i=0; i < 10; i++){
-	
-	CLLocationCoordinate2D newCoordinate;
-	newCoordinate.latitude = coordinate.latitude + (arc4random()%10)/100.0f;
-  	newCoordinate.longitude = coordinate.longitude + (arc4random()%10)/100.0f;
-
-	// -------------- add annotation to the map ---------------
-	DDAnnotation *annotation = [[DDAnnotation alloc] initWithCoordinate:newCoordinate addressDictionary:nil];
-	annotation.title = @"Title";
-	annotation.subtitle = [NSString	stringWithFormat:@"%f %f", annotation.coordinate.latitude, annotation.coordinate.longitude];
-	
-	[self.aMapView addAnnotation:annotation];
-  }
-}
+//-(void)addSurroundingPins:(CLLocationCoordinate2D)coordinate{
+//  
+//  for(int i=0; i < 10; i++){
+//	
+//	CLLocationCoordinate2D newCoordinate;
+//	newCoordinate.latitude = coordinate.latitude + (arc4random()%10)/100.0f;
+//  	newCoordinate.longitude = coordinate.longitude + (arc4random()%10)/100.0f;
+//
+//	// -------------- add annotation to the map ---------------
+//	DDAnnotation *annotation = [[DDAnnotation alloc] initWithCoordinate:newCoordinate addressDictionary:nil];
+//	annotation.title = @"Title";
+//	annotation.subtitle = [NSString	stringWithFormat:@"%f %f", annotation.coordinate.latitude, annotation.coordinate.longitude];
+//	
+//	[self.aMapView addAnnotation:annotation];
+//  }
+//}
 
 
 
 -(void)addParkingSpotsToMapView {
   
+  NSLog(@"self.arr : %@", self.arr);
+  
   for(int i=0; i < [self.arr count]; i++ ){
 	
-	DDAnnotation *annotation = (DDAnnotation *)[self.arr objectAtIndex:i];
-	annotation.title = @"Title";
-	annotation.subtitle = [NSString	stringWithFormat:@"%f %f", annotation.coordinate.latitude, annotation.coordinate.longitude];
+	MDDAnnotation *annotation = (MDDAnnotation *)[self.arr objectAtIndex:i];
+//	annotation.title = annotation.title;
+//	annotation.subtitle = annotation.subtitle;
 	
 	[self.aMapView addAnnotation:annotation];
   }
@@ -158,8 +162,7 @@
 	[self addNewAnnotationToMap:location.coordinate];
   }
   
-  [self addSurroundingPins:location.coordinate];
-  //[self addParkingSpotsToMapView];
+  [self addParkingSpotsToMapView];
   
   [locationManager stopUpdatingLocation];
   

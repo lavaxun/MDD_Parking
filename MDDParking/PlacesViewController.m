@@ -13,6 +13,7 @@
 #import "MDDParkingSpot.h"
 #import <CoreLocation/CoreLocation.h>
 #import <MapKit/MapKit.h>
+#import "MDDAnnotation.h"
 
 
 @interface PlacesViewController ()<CLLocationManagerDelegate> {
@@ -75,8 +76,30 @@
 
 
 -(void)showMapViewController {
+
+  NSMutableArray *annotationsArr = [NSMutableArray arrayWithCapacity:0];
+  MDDAnnotation *annotation = nil;
+  CLLocationCoordinate2D coordinate;
+  
+  for(int i=0; i < [_arr count]; i++){
 	
+	annotation = [[MDDAnnotation alloc] init];
+	coordinate.latitude = [[_arr objectAtIndex:i] lat];
+	coordinate.longitude = [[_arr objectAtIndex:i] lng];
+
+	annotation.coordinate = coordinate;
+	annotation.title = [[_arr objectAtIndex:i] name];
+	annotation.subtitle = [[_arr objectAtIndex:i] name];
+	annotation.objectX = [_arr objectAtIndex:i];
+
+	[annotationsArr addObject:annotation];
+  }
+  
+  
+  
+  
   MapsViewController *mapsViewController = [[MapsViewController alloc] initWithNibName:@"MapsViewController" bundle:nil];
+  mapsViewController.arr = annotationsArr;
   [self.navigationController pushViewController:mapsViewController animated:YES];
 }
 
