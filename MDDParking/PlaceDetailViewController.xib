@@ -309,9 +309,6 @@
 								<int key="IBUIContentMode">7</int>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-<<<<<<< HEAD
-								<string key="IBUIText"/>
-=======
 								<string key="IBUIText">Public Holiday rate</string>
 								<reference key="IBUITextColor" ref="165244994"/>
 								<nil key="IBUIHighlightedColor"/>
@@ -375,7 +372,6 @@
 								<string key="IBUIText"/>
 								<int key="IBUIBorderStyle">3</int>
 								<string key="IBUIPlaceholder">Parking fees on public holiday</string>
->>>>>>> 1aea34f620cab4bf28a70827eb638fd72d658e91
 								<object class="NSColor" key="IBUITextColor">
 									<int key="NSColorSpace">3</int>
 									<bytes key="NSWhite">MAA</bytes>
