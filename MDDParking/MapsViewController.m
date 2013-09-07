@@ -19,7 +19,7 @@
 
 @implementation MapsViewController
 
-@synthesize parkingSpotAnnotationArr;
+@synthesize arr;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -109,9 +109,9 @@
 
 -(void)addParkingSpotsToMapView {
   
-  for(int i=0; i < [self.parkingSpotAnnotationArr count]; i++ ){
+  for(int i=0; i < [self.arr count]; i++ ){
 	
-	DDAnnotation *annotation = (DDAnnotation *)[self.parkingSpotAnnotationArr objectAtIndex:i];
+	DDAnnotation *annotation = (DDAnnotation *)[self.arr objectAtIndex:i];
 	annotation.title = @"Title";
 	annotation.subtitle = [NSString	stringWithFormat:@"%f %f", annotation.coordinate.latitude, annotation.coordinate.longitude];
 	

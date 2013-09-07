@@ -19,6 +19,7 @@
 }
 
 @property (weak, nonatomic) IBOutlet MKMapView *aMapView;
-@property (strong, nonatomic) NSMutableArray *parkingSpotAnnotationArr;
+@property(nonatomic, assign) BOOL onlyOnce;
+@property (strong, nonatomic) NSArray *arr;
 
 @end

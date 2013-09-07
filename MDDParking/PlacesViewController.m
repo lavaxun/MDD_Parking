@@ -10,16 +10,19 @@
 #import "PlaceDetailViewController.h"
 #import "AddMarkerViewController.h"
 #import "MapsViewController.h"
-#import <MapKit/MapKit.h>
 #import "MDDParkingSpot.h"
+#import <CoreLocation/CoreLocation.h>
+#import <MapKit/MapKit.h>
 
-@interface PlacesViewController () {
-    NSMutableArray *arr;
+
+@interface PlacesViewController ()<CLLocationManagerDelegate> {
+    CLLocationManager *_locationManager;
 }
 @end
 
 @implementation PlacesViewController
 
+@synthesize arr = _arr;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -42,17 +45,27 @@
   UITapGestureRecognizer *tapGestureRecogniser = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showMapViewController)];
   [self.aMapView setUserInteractionEnabled:YES];
   [self.aMapView addGestureRecognizer:tapGestureRecogniser];
-  
-  
-  arr = [[NSMutableArray alloc] init];
-  for(int i=0; i < 10; i ++){
-	[arr addObject:[NSString stringWithFormat:@"%d", i]];
-  }
-  
+    [self.aMapView showsUserLocation];
+//    self.aMapView.delegate = self;
+//    [self.aMapView showsUserLocation:YES];
+    
+  if(!_arr)
+      _arr = [NSArray array];
 
 	//------------Add Button ----------
 	UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addPlaces)];
 	self.navigationItem.rightBarButtonItem = addButton;
+    
+    
+    // ------------- grabbing user current location
+    _locationManager = [[CLLocationManager alloc] init];
+    _locationManager.delegate = self;
+    _locationManager.distanceFilter = 10;
+    _locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters;
+    [_locationManager startUpdatingLocation];
+
+    
+    [self.tableView reloadData];
 }
 
 #pragma mark -
@@ -104,7 +117,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-	return [arr count];
+	return [_arr count];
 }
 
 // Customize the appearance of table view cells.
@@ -120,7 +133,7 @@
 
 
 	//NSDate *object = _objects[indexPath.row];
-	cell.textLabel.text = [arr objectAtIndex:indexPath.row];
+	cell.textLabel.text = [[_arr objectAtIndex:indexPath.row] name];
     return cell;
 }
 
@@ -175,10 +188,54 @@
     [self.navigationController pushViewController:self.detailViewController animated:YES];
 }
 
+
+#pragma mark CLLocationManagerDelegate
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
+{
+    CLLocation *location = [locations lastObject];
+    
+    if(location != nil)
+    {
+        // -------------- zoom in to user current location
+        MKCoordinateRegion mapRegion;
+        mapRegion.center = location.coordinate;
+        mapRegion.span.latitudeDelta = 0.2;
+        mapRegion.span.longitudeDelta = 0.2;
+        
+        [self.aMapView setRegion:mapRegion animated:YES];
+    }
+    
+    [_locationManager stopUpdatingLocation];
+    
+}
+
+- (void)locationManager:(CLLocationManager *)manager
+       didFailWithError:(NSError *)error
+{
+    if (error.code == kCLErrorDenied)
+    {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"request_error" object:@"Please turn on location services to determine your location." ];
+    }
+    else if (error.code == kCLErrorLocationUnknown)
+    {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"request_error" object:@"Unable to determine current location. Please try again later." ];
+    }
+    else if(error.code == kCLErrorNetwork)
+    {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"request_error" object:@"Having network connection error. Please check your internet connection and try again." ];
+    }
+    
+    [manager stopUpdatingLocation];
+}
+
+
+
 #pragma adding new place delegate
 - (void)addNewParkingSpot:(MDDParkingSpot*)place
 {
-    [arr addObject:[place name]];
+    NSMutableArray *mutable = [NSMutableArray arrayWithArray:_arr];
+    [mutable addObject:place];
+    _arr = [NSArray arrayWithArray:mutable];
     [self.tableView reloadData];
 }
 

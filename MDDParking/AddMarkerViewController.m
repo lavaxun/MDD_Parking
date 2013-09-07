@@ -12,6 +12,7 @@
 #import "DDAnnotationView.h"
 #import <MapKit/MapKit.h>
 #import <CoreLocation/CoreLocation.h>
+#import <CoreLocation/CLGeocoder.h>
 
 
 @interface AddMarkerViewController () <CLLocationManagerDelegate>
@@ -27,7 +28,7 @@
 @synthesize mapView = _mapView;
 @synthesize delegate = _delegate;
 
-- (void)addNewAnnotationToMap:(CLLocationCoordinate2D)coordinate
+- (void)addNewAnnotationToMap:(CLLocation*)location
 {
     // ------------- setting up the pin on user current location
     
@@ -36,7 +37,7 @@
         
         // -------------- zoom in to user current location
         MKCoordinateRegion mapRegion;
-        mapRegion.center = coordinate;
+        mapRegion.center = location.coordinate;
         mapRegion.span.latitudeDelta = 0.2;
         mapRegion.span.longitudeDelta = 0.2;
         
@@ -45,9 +46,8 @@
         
         
         // -------------- add draggble pin on to the map
-        _annotation = [[DDAnnotation alloc] initWithCoordinate:coordinate addressDictionary:nil];
+        _annotation = [[DDAnnotation alloc] initWithCoordinate:location.coordinate addressDictionary:nil];
         _annotation.title = @"Drag to Move Pin";
-        _annotation.subtitle = [NSString	stringWithFormat:@"%f %f", _annotation.coordinate.latitude, _annotation.coordinate.longitude];
         
         [self.mapView addAnnotation:_annotation];
         
@@ -112,7 +112,7 @@
 - (void)coordinateChanged_:(NSNotification *)notification {
 	
 	DDAnnotation *annotation = notification.object;
-	annotation.subtitle = [NSString	stringWithFormat:@"%f %f", annotation.coordinate.latitude, annotation.coordinate.longitude];
+    
 }
 
 
@@ -122,7 +122,7 @@
 {
     if (oldState == MKAnnotationViewDragStateDragging) {
 		DDAnnotation *annotation = (DDAnnotation *)annotationView.annotation;
-		annotation.subtitle = [NSString	stringWithFormat:@"%f %f", annotation.coordinate.latitude, annotation.coordinate.longitude];
+        
 	}
 }
 
@@ -159,7 +159,7 @@
     
     if(location != nil)
     {
-        [self addNewAnnotationToMap:location.coordinate];
+        [self addNewAnnotationToMap:location];
     }
     
     [_locationManager stopUpdatingLocation];

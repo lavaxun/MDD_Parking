@@ -38,6 +38,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
   
+    
+    
     self.weekdayFees.delegate = self;
     self.weekendFees.delegate = self;
     self.publicHolidayFees.delegate = self;
@@ -83,6 +85,8 @@
     }
     
     [textField resignFirstResponder];
+    [self doneAction];
+    
     return YES;
 }
 
@@ -116,6 +120,8 @@
 
 -(void)doneAction{
     
+    if( [self.name.text length] >1 )
+    {
     NSDictionary *dict = @{
                            @"id": @(12313),
                            @"name": self.name.text,
@@ -147,6 +153,19 @@
     [self.delegate addNewParkingSpot:newSpot];
     NSLog(@"created a new parking spot");
   [self.navigationController popToRootViewControllerAnimated:YES];
+    }
+    else
+    {
+        UIAlertView *alert = [[UIAlertView alloc]
+                              initWithTitle:@"Warning"
+                              message:@"The new parking spot name should not be empty."
+                              delegate:nil //or self
+                              cancelButtonTitle:@"OK"
+                              otherButtonTitles:nil];
+        
+        [alert show];
+    }
+    
 }
 
 - (void)didReceiveMemoryWarning
