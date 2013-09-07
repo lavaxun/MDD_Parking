@@ -27,6 +27,7 @@
 	else
 	{
 	  parkingSpots = posts;
+	  
 	}
   }];
   

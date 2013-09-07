@@ -53,6 +53,11 @@
 	self.navigationItem.rightBarButtonItem = addButton;
 }
 
+#pragma mark -
+
+
+
+
 
 -(void)showMapViewController {
 	
@@ -123,7 +128,7 @@
   return 100.0f;
 }
 
-
+/*
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // Return NO if you do not want the specified item to be editable.
@@ -154,6 +159,7 @@
     // Return NO if you do not want the item to be re-orderable.
     return YES;
 }
+*/
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
