@@ -205,6 +205,20 @@
         mapRegion.span.longitudeDelta = 0.2;
         
         [self.aMapView setRegion:mapRegion animated:YES];
+        
+        __weak typeof(self) weakMaster = self;
+        
+        [MDDParkingSpot nearestParkingSpotsWithBlock:^(NSArray *posts, NSError *error) {
+            if (error)
+            {
+                NSLog(@"something goes wrong in here. it may relates to the places-get.json file.");
+            }
+            else
+            {
+                weakMaster.arr = posts;
+                [weakMaster.tableView reloadData];
+            }
+        } atCoordinate:location.coordinate];
     }
     
     [_locationManager stopUpdatingLocation];
