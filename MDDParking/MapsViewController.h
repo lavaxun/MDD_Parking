@@ -7,10 +7,20 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <MapKit/MapKit.h>
+#import <CoreLocation/CoreLocation.h>
 
-@interface MapsViewController : UIViewController
 
 
+@interface MapsViewController : UIViewController <MKMapViewDelegate, CLLocationManagerDelegate>{
+ 
+  CLLocationManager *locationManager;
+  CLLocationCoordinate2D currentCentre;
+  BOOL firstLaunch;
+  int currenDist;
+}
 
+@property (weak, nonatomic) IBOutlet MKMapView *aMapView;
+@property(nonatomic, assign) BOOL onlyOnce;
 
 @end
