@@ -90,6 +90,8 @@
     // Do any additional setup after loading the view from its nib.
   
   self.navigationItem.title = @"Add New Places";
+  self.navigationController.navigationBar.tintColor = [UIColor blackColor];
+
   
   UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithTitle:@"Next" style:UIBarButtonItemStyleBordered target:self action:@selector(nextBtnAction)];
   self.navigationItem.rightBarButtonItem = addButton;

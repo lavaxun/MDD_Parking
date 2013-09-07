@@ -41,6 +41,7 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
 	self.navigationItem.title = @"Places";
+	self.navigationController.navigationBar.tintColor = [UIColor blackColor];
   
   
   //------------Tap Gestures  ----------

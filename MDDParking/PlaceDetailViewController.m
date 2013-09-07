@@ -35,6 +35,8 @@
 	// Do any additional setup after loading the view, typically from a nib.
 	//[self configureView];
 	self.navigationItem.title = @"Details";
+	self.navigationController.navigationBar.tintColor = [UIColor blackColor];
+
     [self registerForKeyboardNotifications];
     
     _currentState = 0;

@@ -48,6 +48,8 @@
     
     
   self.navigationItem.title = @"Add New Place";
+  self.navigationController.navigationBar.tintColor = [UIColor blackColor];
+
   UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStyleDone target:self action:@selector(doneAction)];
   self.navigationItem.rightBarButtonItem = addButton;
     

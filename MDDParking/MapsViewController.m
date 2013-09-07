@@ -37,6 +37,8 @@
     // Do any additional setup after loading the view from its nib.
   
 	self.navigationItem.title = @"Maps";
+	self.navigationController.navigationBar.tintColor = [UIColor blackColor];
+
 
 	NSLog(@"Location Manager is initialised");
   
