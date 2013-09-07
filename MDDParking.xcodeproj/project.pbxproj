@@ -124,6 +124,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5A3FFBCF17DB24B300C4386A /* AnnotationView */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = AnnotationView;
+			sourceTree = "<group>";
+		};
 		5A56FE2317DB1EB8002C0B50 = {
 			isa = PBXGroup;
 			children = (
@@ -157,6 +164,7 @@
 		5A56FE3517DB1EB8002C0B50 /* MDDParking */ = {
 			isa = PBXGroup;
 			children = (
+				5A3FFBCF17DB24B300C4386A /* AnnotationView */,
 				5A56FEA117DB1F76002C0B50 /* global */,
 				5A56FEA217DB1F8E002C0B50 /* AFNetworking */,
 				5A56FEA317DB1FAB002C0B50 /* Model */,
@@ -458,6 +466,7 @@
 				5A56FE5717DB1EB9002C0B50 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

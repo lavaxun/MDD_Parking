@@ -49,7 +49,21 @@
   firstLaunch=YES;
   self.onlyOnce = YES;
 
+  //[self addCurrentLocationAnnotation];
+  //[self performselect]
 }
+
+
+#pragma mark Current Location Annotation
+
+-(void)addCurrentLocationAnnotation {
+  
+  CLLocation *currLocation;
+
+  currLocation = [locationManager location];
+
+}
+
 
 
 #pragma mark Location Manager Delegates
