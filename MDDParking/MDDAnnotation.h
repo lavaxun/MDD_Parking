@@ -9,16 +9,17 @@
 #import <Foundation/Foundation.h>
 #import <MapKit/MapKit.h>
 
+@class MDDParkingSpot;
 @interface MDDAnnotation : NSObject <MKAnnotation> {
   CLLocationCoordinate2D coordinate;
   NSString *title;
   NSString *subtitle;
-  id objectX;
+  MDDParkingSpot *objectX;
 }
 @property (nonatomic, assign) CLLocationCoordinate2D coordinate;
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, copy) NSString *subtitle;
-@property (nonatomic, retain) id objectX;
+@property (nonatomic, strong) MDDParkingSpot *objectX;
 
 
 @end
