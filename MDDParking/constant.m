@@ -8,4 +8,4 @@
 
 #import "constant.h"
 
-NSString *const kBaseUrl = @"http://www.backend.com";
+NSString *const kBaseUrl = @"http://yung6ix.net/mdd2013";

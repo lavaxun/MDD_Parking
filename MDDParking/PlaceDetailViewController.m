@@ -30,8 +30,6 @@
 	//[self configureView];
 	self.navigationItem.title = @"Details";
 
-	
-	
 }
 
 - (void)viewWillAppear:(BOOL)animated
