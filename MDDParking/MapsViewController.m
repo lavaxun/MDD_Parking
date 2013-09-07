@@ -137,7 +137,7 @@
 
 - (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control {
   
-  MDDAnnotation* annotation = (MDDAnnotation*)view;
+  MDDAnnotation* annotation = (MDDAnnotation*)view.annotation;
   MDDParkingSpot *parkingSpot = (MDDParkingSpot *)annotation.objectX;
   
   
