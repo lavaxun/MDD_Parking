@@ -25,7 +25,7 @@
 @implementation AddMarkerViewController
 
 @synthesize mapView = _mapView;
-
+@synthesize delegate = _delegate;
 
 - (void)addNewAnnotationToMap:(CLLocationCoordinate2D)coordinate
 {
@@ -181,7 +181,7 @@
     {
         [[NSNotificationCenter defaultCenter] postNotificationName:@"request_error" object:@"Having network connection error. Please check your internet connection and try again." ];
     }
-        
+    
     [manager stopUpdatingLocation];
 }
 
@@ -190,6 +190,8 @@
 -(void)nextBtnAction {
   
   AddNewPlaceViewController *addNewPlaceViewController = [[AddNewPlaceViewController alloc] initWithNibName:@"AddNewPlaceViewController" bundle:nil];
+    addNewPlaceViewController.delegate = self.delegate;
+    addNewPlaceViewController.coordinate = _annotation.coordinate;
   [self.navigationController pushViewController:addNewPlaceViewController animated:YES];
 
 }
