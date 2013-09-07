@@ -54,7 +54,7 @@
 								<int key="IBUIContentMode">7</int>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-								<string key="IBUIText">Parking Spot</string>
+								<string key="IBUIText">Parking Spot :</string>
 								<object class="NSColor" key="IBUITextColor" id="165244994">
 									<int key="NSColorSpace">1</int>
 									<bytes key="NSRGB">MCAwIDAAA</bytes>
@@ -79,6 +79,7 @@
 								<string key="NSFrame">{{28, 496}, {265, 21}}</string>
 								<reference key="NSSuperview" ref="630831924"/>
 								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -688,7 +689,7 @@
 						<int key="objectID">186</int>
 						<reference key="object" ref="688015634"/>
 						<array class="NSMutableArray" key="children">
-							<object class="IBNSLayoutConstraint" id="825199704">
+							<object class="IBNSLayoutConstraint" id="715088084">
 								<reference key="firstItem" ref="688015634"/>
 								<int key="firstAttribute">8</int>
 								<int key="relation">0</int>
@@ -724,7 +725,7 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">198</int>
-						<reference key="object" ref="825199704"/>
+						<reference key="object" ref="715088084"/>
 						<reference key="parent" ref="688015634"/>
 					</object>
 				</array>
@@ -747,7 +748,7 @@
 				<string key="184.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="186.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<array class="NSMutableArray" key="186.IBViewMetadataConstraints">
-					<reference ref="825199704"/>
+					<reference ref="715088084"/>
 				</array>
 				<boolean value="NO" key="186.IBViewMetadataTranslatesAutoresizingMaskIntoConstraints"/>
 				<string key="191.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
