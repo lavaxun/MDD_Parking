@@ -31,7 +31,12 @@
 	self.navigationItem.title = @"Details";
 
 	
-	if(self.parkingSpotObj){
+	
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    if(self.parkingSpotObj){
 		self.parkingSpotNameLbl.text = self.parkingSpotObj.name;
 		
 		
@@ -39,24 +44,24 @@
 		MDDFee *mddFee = nil;
 		float parkingFee = 0.0f;
 		NSString *type = @"";
-	  
+        
 		for(int i=0; i < [self.parkingSpotObj.fees count]; i++){
-	
+            
 			mddFee = [self.parkingSpotObj.fees objectAtIndex:i];
 			parkingFee =  mddFee.fee;
-		  
+            
 			if(parkingFee == 0.0f){
-			  type = [NSString stringWithFormat:@"%@",mddFee.type];
+                type = [NSString stringWithFormat:@"%@",mddFee.type];
 			} else {
-			  type = [NSString stringWithFormat:@"RM %0.2f %@", parkingFee, mddFee.type];
+                type = [NSString stringWithFormat:@"RM %0.2f %@", parkingFee, mddFee.type];
 			}
 			
 			str = [NSString stringWithFormat:@"%@%@ %@\n\n",str, mddFee.rule, type];
 			
 		}
-	  
-	  NSLog(@"str : %@", str);
-	  self.parkingRuleLbl.text = str;
+        
+        NSLog(@"str : %@", str);
+        self.parkingRuleLbl.text = str;
 	}
 }
 
