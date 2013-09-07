@@ -135,7 +135,10 @@
   NSMutableArray *annotationsArr = [self getAnnotationsArr];
   
   MapsViewController *mapsViewController = [[MapsViewController alloc] initWithNibName:@"MapsViewController" bundle:nil];
+<<<<<<< HEAD
 	mapsViewController.arr = annotationsArr;
+=======
+>>>>>>> 1aea34f620cab4bf28a70827eb638fd72d658e91
     mapsViewController.delegate = self;
   [self.navigationController pushViewController:mapsViewController animated:YES];
 }
@@ -240,12 +243,15 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	self.detailViewController = [[PlaceDetailViewController alloc] initWithNibName:@"PlaceDetailViewController" bundle:nil];
   
 	[tableView deselectRowAtIndexPath:indexPath animated:YES];
   
 	self.detailViewController.delegate = self;
 
+        self.detailViewController = [[PlaceDetailViewController alloc] initWithNibName:@"PlaceDetailViewController" bundle:nil];
+        self.detailViewController.delegate = self;
+    //NSDate *object = _objects[indexPath.row];
+    //self.detailViewController.detailItem = object;
 	MDDParkingSpot *mddParkingSpot = (MDDParkingSpot *)[self.arr objectAtIndex:indexPath.row];
     _selectedRow = [indexPath row];
 	self.detailViewController.parkingSpotObj = mddParkingSpot;
