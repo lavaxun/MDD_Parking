@@ -10,6 +10,7 @@
 #import <MapKit/MapKit.h>
 #import "AddNewPlaceViewController.h"
 #import "MDDParkingSpot.h"
+#import "MDDFee.h"
 
 @interface PlaceDetailViewController ()
 //- (void)configureView;
@@ -30,10 +31,23 @@
 	self.navigationItem.title = @"Details";
 
 	
-  if(self.parkingSpotObj){
-	self.parkingSpotNameLbl.text = self.parkingSpotObj.name;
+	if(self.parkingSpotObj){
+		self.parkingSpotNameLbl.text = self.parkingSpotObj.name;
+		
+		
+		NSString *str = @"";
+		MDDFee *mddFee = nil;
+		for(int i=0; i < [self.parkingSpotObj.fees count]; i++){
 	
-  }
+			mddFee = [self.parkingSpotObj.fees objectAtIndex:i];
+		  
+			str = [NSString stringWithFormat:@"%@%@ %@ %f\n",str, mddFee.rule, mddFee.type, mddFee.fee];
+			
+		}
+	  
+	  NSLog(@"str : %@", str);
+	  self.parkingRuleLbl.text = str;
+	}
 }
 
 
