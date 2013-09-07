@@ -11,6 +11,7 @@
 #import "AddMarkerViewController.h"
 #import "MapsViewController.h"
 #import "MDDParkingSpot.h"
+#import "MDDFee.h"
 #import <CoreLocation/CoreLocation.h>
 #import <MapKit/MapKit.h>
 #import "MDDAnnotation.h"
@@ -74,29 +75,62 @@
 
 
 
-
--(void)showMapViewController {
-
+-(NSMutableArray *)getAnnotationsArr{
+  
   NSMutableArray *annotationsArr = [NSMutableArray arrayWithCapacity:0];
   MDDAnnotation *annotation = nil;
   CLLocationCoordinate2D coordinate;
+  
+  NSArray *feesArr	  = nil;
+  MDDFee *mddFee	  = nil;
+  float parkingFee	  = 0.0f;
+  NSString *type	  = @"";
+  NSString *str		  = @"";
+  
   
   for(int i=0; i < [_arr count]; i++){
 	
 	annotation = [[MDDAnnotation alloc] init];
 	coordinate.latitude = [[_arr objectAtIndex:i] lat];
 	coordinate.longitude = [[_arr objectAtIndex:i] lng];
-
+	
+	NSLog(@"Lat : %f, Lng : %f", coordinate.latitude, coordinate.longitude);
+	
 	annotation.coordinate = coordinate;
 	annotation.title = [[_arr objectAtIndex:i] name];
-	annotation.subtitle = [[_arr objectAtIndex:i] name];
-	annotation.objectX = [_arr objectAtIndex:i];
+	
+	feesArr = [[_arr objectAtIndex:i] fees];
+	if(feesArr && [feesArr count]){
+	  
+		mddFee = [[[_arr objectAtIndex:i] fees] objectAtIndex:0];
+		if(mddFee){
+			parkingFee =  mddFee.fee;
+			
+			if(parkingFee == 0.0f){
+			  type = [NSString stringWithFormat:@"%@",mddFee.type];
+			} else {
+			  type = [NSString stringWithFormat:@"RM %0.2f %@", parkingFee, mddFee.type];
+			}
+			str = [NSString stringWithFormat:@"%@ %@", mddFee.rule, type];
+			
+			annotation.subtitle = str;
+		}
+	  
+	}
 
+	annotation.objectX = [_arr objectAtIndex:i];	
 	[annotationsArr addObject:annotation];
   }
   
-  
-  
+  return annotationsArr;
+}
+
+
+
+
+-(void)showMapViewController {
+
+  NSMutableArray *annotationsArr = [self getAnnotationsArr];
   
   MapsViewController *mapsViewController = [[MapsViewController alloc] initWithNibName:@"MapsViewController" bundle:nil];
   mapsViewController.arr = annotationsArr;
@@ -206,8 +240,10 @@
     if (!self.detailViewController) {
         self.detailViewController = [[PlaceDetailViewController alloc] initWithNibName:@"PlaceDetailViewController" bundle:nil];
     }
-    //NSDate *object = _objects[indexPath.row];
-    //self.detailViewController.detailItem = object;
+  
+  
+	[tableView deselectRowAtIndexPath:indexPath animated:YES];
+  
 	MDDParkingSpot *mddParkingSpot = (MDDParkingSpot *)[self.arr objectAtIndex:indexPath.row];
 	self.detailViewController.parkingSpotObj = mddParkingSpot;
     [self.navigationController pushViewController:self.detailViewController animated:YES];
@@ -273,7 +309,7 @@
 - (void)addNewParkingSpot:(MDDParkingSpot*)place
 {
     [MDDParkingSpot addNewParkingSpotsWithBlock:^(MDDParkingSpot *post, NSError *error) {
-        NSLog(@"posted");
+        NSLog(@"posted : %f, %f", post.lat, post.lng);
     } byUsing:place];
     
     NSMutableArray *mutable = [NSMutableArray arrayWithArray:_arr];
