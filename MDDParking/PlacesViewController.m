@@ -135,10 +135,7 @@
   NSMutableArray *annotationsArr = [self getAnnotationsArr];
   
   MapsViewController *mapsViewController = [[MapsViewController alloc] initWithNibName:@"MapsViewController" bundle:nil];
-<<<<<<< HEAD
 	mapsViewController.arr = annotationsArr;
-=======
->>>>>>> 1aea34f620cab4bf28a70827eb638fd72d658e91
     mapsViewController.delegate = self;
   [self.navigationController pushViewController:mapsViewController animated:YES];
 }
