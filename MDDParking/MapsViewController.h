@@ -10,14 +10,12 @@
 #import <MapKit/MapKit.h>
 #import <CoreLocation/CoreLocation.h>
 
-
-
+@class DDAnnotation;
 @interface MapsViewController : UIViewController <MKMapViewDelegate, CLLocationManagerDelegate>{
  
   CLLocationManager *locationManager;
-  CLLocationCoordinate2D currentCentre;
-  BOOL firstLaunch;
-  int currenDist;
+  DDAnnotation *_annotation;
+
 }
 
 @property (weak, nonatomic) IBOutlet MKMapView *aMapView;

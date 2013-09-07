@@ -7,7 +7,11 @@
 //
 
 #import "MapsViewController.h"
+#import <CoreLocation/CoreLocation.h>
 #import <MapKit/MapKit.h>
+#import "DDAnnotation.h"
+#import "DDAnnotationView.h"
+#import "PlaceDetailViewController.h"
 
 @interface MapsViewController ()
 
@@ -15,7 +19,7 @@
 
 @implementation MapsViewController
 
-@synthesize onlyOnce;
+@synthesize arr;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -41,32 +45,98 @@
   //Instantiate a location object.
   locationManager = [[CLLocationManager alloc] init];
   [locationManager setDelegate:self];
-  //[locationManager setDistanceFilter:kCLDistanceFilterNone];
-  [locationManager setDesiredAccuracy:kCLLocationAccuracyBest];
+  [locationManager setDistanceFilter:10];
+  [locationManager setDesiredAccuracy:kCLLocationAccuracyNearestTenMeters];
   [locationManager startUpdatingLocation];
 
-  //Set the first launch instance variable to allow the map to zoom on the user location when first launched.
-  firstLaunch=YES;
-  self.onlyOnce = YES;
-
-  //[self addCurrentLocationAnnotation];
-  //[self performselect]
 }
 
 
-#pragma mark Current Location Annotation
 
--(void)addCurrentLocationAnnotation {
+- (void)addNewAnnotationToMap:(CLLocationCoordinate2D)coordinate
+{
+  // ------------- setting up the pin on user current location
   
-  CLLocation *currLocation;
-
-  currLocation = [locationManager location];
-
+  if(!_annotation)
+  {
+	
+	NSLog(@"Adding anotation view");
+	// -------------- zoom in to user current location
+	MKCoordinateRegion mapRegion;
+	mapRegion.center = coordinate;
+	mapRegion.span.latitudeDelta = 0.2;
+	mapRegion.span.longitudeDelta = 0.2;
+	
+	[self.aMapView setRegion:mapRegion animated:YES];
+	
+	
+	
+	// -------------- add draggble pin on to the map
+	_annotation = [[DDAnnotation alloc] initWithCoordinate:coordinate addressDictionary:nil];
+	_annotation.title = @"Parking Spot";
+	_annotation.subtitle = [NSString	stringWithFormat:@"%f %f", _annotation.coordinate.latitude, _annotation.coordinate.longitude];
+	
+	[self.aMapView addAnnotation:_annotation];
+	  
+  } else {
+	NSLog(@"Inside else");
+  }
 }
 
 
 
-#pragma mark Location Manager Delegates
+#pragma mark Add Parking Spots to Map
+
+
+-(void)addSurroundingPins:(CLLocationCoordinate2D)coordinate{
+  
+  for(int i=0; i < 10; i++){
+	
+	CLLocationCoordinate2D newCoordinate;
+	newCoordinate.latitude = coordinate.latitude + (arc4random()%10)/100.0f;
+  	newCoordinate.longitude = coordinate.longitude + (arc4random()%10)/100.0f;
+
+	// -------------- add annotation to the map ---------------
+	DDAnnotation *annotation = [[DDAnnotation alloc] initWithCoordinate:newCoordinate addressDictionary:nil];
+	annotation.title = @"Title";
+	annotation.subtitle = [NSString	stringWithFormat:@"%f %f", annotation.coordinate.latitude, annotation.coordinate.longitude];
+	
+	[self.aMapView addAnnotation:annotation];
+  }
+}
+
+
+
+-(void)addParkingSpotsToMapView {
+  
+  for(int i=0; i < [self.arr count]; i++ ){
+	
+	DDAnnotation *annotation = (DDAnnotation *)[self.arr objectAtIndex:i];
+	annotation.title = @"Title";
+	annotation.subtitle = [NSString	stringWithFormat:@"%f %f", annotation.coordinate.latitude, annotation.coordinate.longitude];
+	
+	[self.aMapView addAnnotation:annotation];
+  }
+  
+}
+
+
+#pragma mark Handling Map Tapout
+
+- (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control {
+  
+   //DDAnnotation *location = (DDAnnotation *)view.annotation;
+  //NSLog(@"Location Tapped : %@", NSStringFromCGPoint(location.coordinate));
+  
+  NSLog(@"Annotation Tapped");
+  
+  PlaceDetailViewController *placeDetailViewController = [[PlaceDetailViewController alloc] initWithNibName:@"PlaceDetailViewController" bundle:nil];
+  [self.navigationController pushViewController:placeDetailViewController animated:YES];
+}
+
+
+
+#pragma mark CLLocationManagerDelegate
 
 - (void)locationManager:(CLLocationManager *)manager
 	didUpdateToLocation:(CLLocation *)newLocation
@@ -77,95 +147,46 @@
 
 }
 
--(void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
-  NSLog(@"Location Manager failed : %@", [error localizedDescription]);
-}
-
-
-#pragma mark -
-
-
--(void) queryGooglePlaces: (NSString *) googleType
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
 {
+  CLLocation *location = [locations lastObject];
   
+  NSLog(@"Location Manager didUpdateLocations");
   
-//  NSString *url = [NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/search/json?location=%f,%f&radius=%@&name=%@&sensor=true&key=%@", currentCentre.latitude, currentCentre.longitude, [NSString stringWithFormat:@"%i", 50000], @"%22bank%20rakyat%22"/*googleType*/, kGOOGLE_API_KEY];
-//  NSLog(@"Type: %@, URL: %@", googleType, url);
-//  //Formulate the string as URL object.
-//  NSURL *googleRequestURL=[NSURL URLWithString:url];
-//  
-//  // Retrieve the results of the URL.
-//  dispatch_async(kBgQueue, ^{
-//	NSData* data = [NSData dataWithContentsOfURL: googleRequestURL];
-//	[self performSelectorOnMainThread:@selector(fetchedData:) withObject:data waitUntilDone:YES];
-//  });
-}
-
-- (void)fetchedData:(NSData *)responseData {
-  //parse out the json data
-  if (responseData != NULL && responseData.length > 0) {
-	NSError* error;
-	NSDictionary* json = [NSJSONSerialization
-						  JSONObjectWithData:responseData
-						  
-						  options:kNilOptions
-						  error:&error];
-	
-	//The results from Google will be an array obtained from the NSDictionary object with the key "results".
-	NSArray* places = [json objectForKey:@"results"];
-	
-	//Write out the data to the console.
-	NSLog(@"Google Data: %@", places);
-	
-	//Plot the data in the places array onto the map with the plotPostions method.
-	[self plotPositions:places];
-  }else {
-	//[self.mainDelegate showMessage:@"Network connection is not available on your device to load Map." title:@"Alert"];
-  }
-}
-
-- (void)plotPositions:(NSArray *)data
-{
-  //Remove any existing custom annotations but not the user location blue dot.
-//  for (id<MKAnnotation> annotation in self.aMapView.annotations)
-//  {
-//	if ([annotation isKindOfClass:[MKAnnotation class]])
-//	{
-//	  [self.aMapView removeAnnotation:annotation];
-//	}
-//  }
-  
-  
-  //Loop through the array of places returned from the Google API.
-  for (int i=0; i<[data count]; i++)
+  if(location != nil)
   {
-	self.onlyOnce = NO;
-	//Retrieve the NSDictionary object in each index of the array.
-	NSDictionary* place = [data objectAtIndex:i];
-	
-	//There is a specific NSDictionary object that gives us location info.
-	NSDictionary *geo = [place objectForKey:@"geometry"];
-	
-	
-	//Get our name and address info for adding to a pin.
-	NSString *name=[place objectForKey:@"name"];
-	NSString *vicinity=[place objectForKey:@"vicinity"];
-	
-	//Get the lat and long for the location.
-	NSDictionary *loc = [geo objectForKey:@"location"];
-	
-	//Create a special variable to hold this coordinate info.
-	CLLocationCoordinate2D placeCoord;
-	
-	//Set the lat and long.
-	placeCoord.latitude=[[loc objectForKey:@"lat"] doubleValue];
-	placeCoord.longitude=[[loc objectForKey:@"lng"] doubleValue];
-	
-	//Create a new annotiation.
-//	MapPoint *placeObject = [[MapPoint alloc] initWithName:name address:vicinity coordinate:placeCoord];
-//	[mapView addAnnotation:placeObject];
+	[self addNewAnnotationToMap:location.coordinate];
   }
+  
+  [self addSurroundingPins:location.coordinate];
+  //[self addParkingSpotsToMapView];
+  
+  [locationManager stopUpdatingLocation];
+  
 }
+
+- (void)locationManager:(CLLocationManager *)manager
+       didFailWithError:(NSError *)error
+{
+  
+  NSLog(@"Failed with error : %@", [error localizedDescription]);
+  
+  if (error.code == kCLErrorDenied)
+  {
+	[[NSNotificationCenter defaultCenter] postNotificationName:@"request_error" object:@"Please turn on location services to determine your location." ];
+  }
+  else if (error.code == kCLErrorLocationUnknown)
+  {
+	[[NSNotificationCenter defaultCenter] postNotificationName:@"request_error" object:@"Unable to determine current location. Please try again later." ];
+  }
+  else if(error.code == kCLErrorNetwork)
+  {
+	[[NSNotificationCenter defaultCenter] postNotificationName:@"request_error" object:@"Having network connection error. Please check your internet connection and try again." ];
+  }
+  
+  [manager stopUpdatingLocation];
+}
+
 
 
 #pragma mark - MKMapViewDelegate methods.
@@ -177,21 +198,10 @@
   //Zoom back to the user location after adding a new set of annotations.
   
   //Get the center point of the visible map.
-  CLLocationCoordinate2D centre = [mv centerCoordinate];
-  
-  MKCoordinateRegion region;
-  
-  //If this is the first launch of the app then set the center point of the map to the user's location.
-  if (firstLaunch) {
-	region = MKCoordinateRegionMakeWithDistance(locationManager.location.coordinate,currenDist,currenDist);
-	firstLaunch=NO;
-  }else {
-	//Set the center point to the visible region of the map and change the radius to match the search radius passed to the Google query string.
-	region = MKCoordinateRegionMakeWithDistance(centre,50000,50000);
-  }
-  
-  //Set the visible region of the map.
-  [mv setRegion:region animated:YES];
+//  CLLocationCoordinate2D centre = [mv centerCoordinate];
+//  MKCoordinateRegion region;
+//  region = MKCoordinateRegionMakeWithDistance(centre,50000,50000);
+//  [mv setRegion:region animated:YES];
   
 }
 
@@ -230,7 +240,13 @@
   {
 	//9
 	annotationView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:identifier];
-	annotationView.pinColor = MKPinAnnotationColorPurple;
+	
+	if(annotation == mapView.userLocation) {
+	  annotationView.pinColor = MKPinAnnotationColorGreen;
+	} else {
+	  annotationView.pinColor = MKPinAnnotationColorPurple;
+	}
+	//annotationView.image = [UIImage imageNamed:@"arrest.png"];
 	annotationView.animatesDrop = YES;
 	annotationView.canShowCallout = YES;
   }else {
@@ -242,8 +258,8 @@
   
 }
 
-- (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated {
-  return;
+//- (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated {
+  //return;
   //    //Get the east and west points on the map so we calculate the distance (zoom level) of the current map view.
   //    MKMapRect mRect = self.mapView.visibleMapRect;
   //    MKMapPoint eastMapPoint = MKMapPointMake(MKMapRectGetMinX(mRect), MKMapRectGetMidY(mRect));
@@ -254,42 +270,35 @@
   //
   //    //Set our current centre point on the map instance variable.
   //    currentCentre = self.mapView.centerCoordinate;
-}
+//}
 
--(void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation {
-  MKCoordinateRegion region;
-  MKCoordinateSpan span;
-  span.latitudeDelta = 0.005;
-  span.longitudeDelta = 0.005;
-  CLLocationCoordinate2D location;
-  location.latitude = userLocation.coordinate.latitude;
-  location.longitude = userLocation.coordinate.longitude;
-  region.span = span;
-  region.center = location;
-  //[self.mapView setRegion:region animated:YES];
-  
-  //    MKMapRect mRect = self.mapView.visibleMapRect;
-  //    MKMapPoint eastMapPoint = MKMapPointMake(MKMapRectGetMinX(mRect), MKMapRectGetMidY(mRect));
-  //    MKMapPoint westMapPoint = MKMapPointMake(MKMapRectGetMaxX(mRect), MKMapRectGetMidY(mRect));
-  //
-  //    //Set our current distance instance variable.
-  //    currenDist = MKMetersBetweenMapPoints(eastMapPoint, westMapPoint);
-  //    currentCentre = self.mapView.centerCoordinate;
-}
+//-(void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation {
+//  MKCoordinateRegion region;
+//  MKCoordinateSpan span;
+//  span.latitudeDelta = 0.005;
+//  span.longitudeDelta = 0.005;
+//  CLLocationCoordinate2D location;
+//  location.latitude = userLocation.coordinate.latitude;
+//  location.longitude = userLocation.coordinate.longitude;
+//  region.span = span;
+//  region.center = location;
+//
+//}
 
-- (void)mapViewDidFinishLoadingMap:(MKMapView *)mapView {
-  if (self.onlyOnce) {
-	MKMapRect mRect = self.aMapView.visibleMapRect;
-	MKMapPoint eastMapPoint = MKMapPointMake(MKMapRectGetMinX(mRect), MKMapRectGetMidY(mRect));
-	MKMapPoint westMapPoint = MKMapPointMake(MKMapRectGetMaxX(mRect), MKMapRectGetMidY(mRect));
-	
-	//Set our current distance instance variable.
-	currenDist = MKMetersBetweenMapPoints(eastMapPoint, westMapPoint);
-	currentCentre = self.aMapView.centerCoordinate;
-	//[self queryGooglePlaces:@"Check"];
-  }
-}
+//- (void)mapViewDidFinishLoadingMap:(MKMapView *)mapView {
+//  if (self.onlyOnce) {
+//	MKMapRect mRect = self.aMapView.visibleMapRect;
+//	MKMapPoint eastMapPoint = MKMapPointMake(MKMapRectGetMinX(mRect), MKMapRectGetMidY(mRect));
+//	MKMapPoint westMapPoint = MKMapPointMake(MKMapRectGetMaxX(mRect), MKMapRectGetMidY(mRect));
+//	
+//	//Set our current distance instance variable.
+//	currenDist = MKMetersBetweenMapPoints(eastMapPoint, westMapPoint);
+//	currentCentre = self.aMapView.centerCoordinate;
+//	//[self queryGooglePlaces:@"Check"];
+//  }
+//}
 
+#pragma mark -
 
 
 - (void)didReceiveMemoryWarning

@@ -78,6 +78,35 @@
     }];
 }
 
+/*
++ (void)addNewParkingSpotsWithBlock:(void (^)(MDDParkingSpot *post, NSError *error))block byUsing:(MDDParkingSpot*)parkingSpot
+{
+    
+    NSDictionary* parameters = @{
+                                 @"name"     :   @(coordinate.latitude),
+                                 @"lng"     :   @(coordinate.longitude)
+                                 };
+    
+    [[MDDAppAPIClient sharedClient] getPath:@"create_place" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
+        NSArray *parkingSpotsFromResponse = [JSON valueForKeyPath:@"results"];
+        NSMutableArray *mutablePosts = [NSMutableArray arrayWithCapacity:[parkingSpotsFromResponse count]];
+        for (NSDictionary *attributes in parkingSpotsFromResponse) {
+            MDDParkingSpot *parkingSpot = [[MDDParkingSpot alloc] initWithAttributes:attributes];
+            [mutablePosts addObject:parkingSpot];
+        }
+        
+        if (block) {
+            block([NSArray arrayWithArray:mutablePosts], nil);
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        if (block) {
+            block([NSArray array], error);
+        }
+    }];
+    
+}
+ */
+
 
 + (void)addNewParkingSpotsWithBlock:(void (^)(MDDParkingSpot *post, NSError *error))block byUsing:(MDDParkingSpot*)parkingSpot
 {

@@ -9,6 +9,8 @@
 #import "PlaceDetailViewController.h"
 #import <MapKit/MapKit.h>
 #import "AddNewPlaceViewController.h"
+#import "MDDParkingSpot.h"
+#import "MDDFee.h"
 
 @interface PlaceDetailViewController ()
 //- (void)configureView;
@@ -16,26 +18,10 @@
 
 @implementation PlaceDetailViewController
 
+@synthesize parkingSpotObj;
+
 #pragma mark - Managing the detail item
 
-//- (void)setDetailItem:(id)newDetailItem
-//{
-//    if (_detailItem != newDetailItem) {
-//        _detailItem = newDetailItem;
-//        
-//        // Update the view.
-//        [self configureView];
-//    }
-//}
-//
-//- (void)configureView
-//{
-//    // Update the user interface for the detail item.
-//
-//	if (self.detailItem) {
-//	    self.detailDescriptionLabel.text = [self.detailItem description];
-//	}
-//}
 
 - (void)viewDidLoad
 {
@@ -43,8 +29,35 @@
 	// Do any additional setup after loading the view, typically from a nib.
 	//[self configureView];
 	self.navigationItem.title = @"Details";
-  
-  
+
+	
+	if(self.parkingSpotObj){
+		self.parkingSpotNameLbl.text = self.parkingSpotObj.name;
+		
+		
+		NSString *str = @"";
+		MDDFee *mddFee = nil;
+		float parkingFee = 0.0f;
+		NSString *type = @"";
+	  
+		for(int i=0; i < [self.parkingSpotObj.fees count]; i++){
+	
+			mddFee = [self.parkingSpotObj.fees objectAtIndex:i];
+			parkingFee =  mddFee.fee;
+		  
+			if(parkingFee == 0.0f){
+			  type = [NSString stringWithFormat:@"%@",mddFee.type];
+			} else {
+			  type = [NSString stringWithFormat:@"RM %0.2f %@", parkingFee, mddFee.type];
+			}
+			
+			str = [NSString stringWithFormat:@"%@%@ %@\n\n",str, mddFee.rule, type];
+			
+		}
+	  
+	  NSLog(@"str : %@", str);
+	  self.parkingRuleLbl.text = str;
+	}
 }
 
 

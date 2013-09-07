@@ -8,6 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
-@interface PlaceDetailViewController : UIViewController
+@class MDDParkingSpot;
+@interface PlaceDetailViewController : UIViewController {
+  
+}
+
+@property (strong, nonatomic) MDDParkingSpot *parkingSpotObj;
+@property (weak, nonatomic) IBOutlet UILabel *parkingSpotNameLbl;
+
+@property (weak, nonatomic) IBOutlet UILabel *parkingRuleLbl;
+
 
 @end

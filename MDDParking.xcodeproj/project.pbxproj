@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5A3FFBD517DB5EB400C4386A /* MDDAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A3FFBD417DB5EB300C4386A /* MDDAnnotation.m */; };
 		5A56FE3017DB1EB8002C0B50 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A56FE2F17DB1EB8002C0B50 /* UIKit.framework */; };
 		5A56FE3217DB1EB8002C0B50 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A56FE3117DB1EB8002C0B50 /* Foundation.framework */; };
 		5A56FE3417DB1EB8002C0B50 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A56FE3317DB1EB8002C0B50 /* CoreGraphics.framework */; };
@@ -55,6 +56,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5A3FFBD317DB5EB300C4386A /* MDDAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDDAnnotation.h; sourceTree = "<group>"; };
+		5A3FFBD417DB5EB300C4386A /* MDDAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDDAnnotation.m; sourceTree = "<group>"; };
 		5A56FE2C17DB1EB8002C0B50 /* MDDParking.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MDDParking.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A56FE2F17DB1EB8002C0B50 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		5A56FE3117DB1EB8002C0B50 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -153,6 +156,8 @@
 				A1785E3917DB34A50044CC5A /* DDAnnotation.m */,
 				A1785E3A17DB34A50044CC5A /* DDAnnotationView.h */,
 				A1785E3B17DB34A60044CC5A /* DDAnnotationView.m */,
+				5A3FFBD317DB5EB300C4386A /* MDDAnnotation.h */,
+				5A3FFBD417DB5EB300C4386A /* MDDAnnotation.m */,
 				A1785E3C17DB34A60044CC5A /* Pin.png */,
 				A1785E3D17DB34A60044CC5A /* PinDown1.png */,
 				A1785E3E17DB34A60044CC5A /* PinDown2.png */,
@@ -394,6 +399,7 @@
 				A1785E4217DB34A60044CC5A /* DDAnnotation.m in Sources */,
 				A1785E4317DB34A60044CC5A /* DDAnnotationView.m in Sources */,
 				A1785E4D17DB351D0044CC5A /* AddMarkerViewController.m in Sources */,
+				5A3FFBD517DB5EB400C4386A /* MDDAnnotation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

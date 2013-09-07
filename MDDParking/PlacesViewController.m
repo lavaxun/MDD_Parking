@@ -68,6 +68,11 @@
     [self.tableView reloadData];
 }
 
+#pragma mark -
+
+
+
+
 
 -(void)showMapViewController {
 	
@@ -132,6 +137,14 @@
     return cell;
 }
 
+
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+	
+  return 100.0f;
+}
+
+/*
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // Return NO if you do not want the specified item to be editable.
@@ -162,6 +175,7 @@
     // Return NO if you do not want the item to be re-orderable.
     return YES;
 }
+*/
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -171,6 +185,8 @@
     }
     //NSDate *object = _objects[indexPath.row];
     //self.detailViewController.detailItem = object;
+	MDDParkingSpot *mddParkingSpot = (MDDParkingSpot *)[self.arr objectAtIndex:indexPath.row];
+	self.detailViewController.parkingSpotObj = mddParkingSpot;
     [self.navigationController pushViewController:self.detailViewController animated:YES];
 }
 
