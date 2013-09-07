@@ -11,6 +11,9 @@
 @implementation MDDAnnotation
 
 @synthesize coordinate;
+@synthesize title;
+@synthesize subtitle;
 @synthesize objectX;
+
 
 @end
