@@ -285,18 +285,7 @@
 //
 //}
 
-//- (void)mapViewDidFinishLoadingMap:(MKMapView *)mapView {
-//  if (self.onlyOnce) {
-//	MKMapRect mRect = self.aMapView.visibleMapRect;
-//	MKMapPoint eastMapPoint = MKMapPointMake(MKMapRectGetMinX(mRect), MKMapRectGetMidY(mRect));
-//	MKMapPoint westMapPoint = MKMapPointMake(MKMapRectGetMaxX(mRect), MKMapRectGetMidY(mRect));
-//	
-//	//Set our current distance instance variable.
-//	currenDist = MKMetersBetweenMapPoints(eastMapPoint, westMapPoint);
-//	currentCentre = self.aMapView.centerCoordinate;
-//	//[self queryGooglePlaces:@"Check"];
-//  }
-//}
+
 
 #pragma mark -
 
