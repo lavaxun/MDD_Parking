@@ -37,10 +37,8 @@
     // Do any additional setup after loading the view from its nib.
   
 	self.navigationItem.title = @"Maps";
-  //[self queryGooglePlaces:buttonTitle];
-  
 
-  NSLog(@"Location Manager is initialised");
+	NSLog(@"Location Manager is initialised");
   
   
   //Instantiate a location object.
@@ -65,8 +63,8 @@
 	// -------------- zoom in to user current location
 	MKCoordinateRegion mapRegion;
 	mapRegion.center = coordinate;
-	mapRegion.span.latitudeDelta = 0.2;
-	mapRegion.span.longitudeDelta = 0.2;
+	mapRegion.span.latitudeDelta = 0.005;
+	mapRegion.span.longitudeDelta = 0.005;
 	
 	[self.aMapView setRegion:mapRegion animated:YES];
 	
@@ -90,43 +88,10 @@
 
 #pragma mark Add Parking Spots to Map
 
-
-//-(void)addSurroundingPins:(CLLocationCoordinate2D)coordinate{
-//  
-//  for(int i=0; i < 10; i++){
-//	
-//	CLLocationCoordinate2D newCoordinate;
-//	newCoordinate.latitude = coordinate.latitude + (arc4random()%10)/100.0f;
-//  	newCoordinate.longitude = coordinate.longitude + (arc4random()%10)/100.0f;
-//
-//	// -------------- add annotation to the map ---------------
-//	DDAnnotation *annotation = [[DDAnnotation alloc] initWithCoordinate:newCoordinate addressDictionary:nil];
-//	annotation.title = @"Title";
-//	annotation.subtitle = [NSString	stringWithFormat:@"%f %f", annotation.coordinate.latitude, annotation.coordinate.longitude];
-//	
-//	[self.aMapView addAnnotation:annotation];
-//  }
-//}
-
-
-
 -(void)addParkingSpotsToMapView {
   
-  //NSLog(@"self.arr : %@", self.arr);
-  
-  CLLocationCoordinate2D coordinate2D;
-
-  
   for(int i=0; i < [self.arr count]; i++ ){
-	
 	MDDAnnotation *annotation = (MDDAnnotation *)[self.arr objectAtIndex:i];
-
-	  coordinate2D = [self.aMapView centerCoordinate];
-	  coordinate2D.latitude = annotation.coordinate.latitude + (arc4random()%10)/100.0f;
-	  coordinate2D.longitude = annotation.coordinate.longitude + (arc4random()%10)/100.0f;
-
-	  annotation.coordinate = coordinate2D;
-	
 	[self.aMapView addAnnotation:annotation];
   }
   
@@ -161,6 +126,7 @@
   NSLog(@"Location Manager updated oldLocation : %f, %f", oldLocation.coordinate.latitude, oldLocation.coordinate.longitude);
 
 }
+
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
 {
@@ -249,12 +215,8 @@
   
   //8
   static NSString *identifier = @"myAnnotation";
-  //MKPinAnnotationView * annotationView = (MKPinAnnotationView*)[self.aMapView dequeueReusableAnnotationViewWithIdentifier:identifier];
-  
   MKPinAnnotationView * annotationView = (MKPinAnnotationView*)[self.aMapView dequeueReusableAnnotationViewWithIdentifier:identifier];
 
-  
-  
   
   if (!annotationView)
   {

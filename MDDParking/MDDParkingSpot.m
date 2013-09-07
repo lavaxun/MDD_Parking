@@ -167,8 +167,8 @@
 {
     _id = [[attributes valueForKeyPath:@"id"] integerValue];
     _name = [attributes valueForKeyPath:@"name"];
-    _lat = [[attributes valueForKeyPath:@"lat"] floatValue];
-    _lng = [[attributes valueForKeyPath:@"lat"] floatValue];
+    _lat = [[attributes valueForKeyPath:@"latitude"] floatValue];
+    _lng = [[attributes valueForKeyPath:@"longitude"] floatValue];
     
     NSArray* feesList = [attributes valueForKeyPath:@"fees"];
     

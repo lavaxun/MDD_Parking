@@ -91,6 +91,7 @@
   for(int i=0; i < [_arr count]; i++){
 	
 	annotation = [[MDDAnnotation alloc] init];
+	
 	coordinate.latitude = [[_arr objectAtIndex:i] lat];
 	coordinate.longitude = [[_arr objectAtIndex:i] lng];
 	
