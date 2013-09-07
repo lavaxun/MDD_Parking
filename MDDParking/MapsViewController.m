@@ -143,7 +143,6 @@
   
   NSLog(@"Annotation Tapped : %@", parkingSpot);
   
-//  return;
   
   PlaceDetailViewController *placeDetailViewController = [[PlaceDetailViewController alloc] initWithNibName:@"PlaceDetailViewController" bundle:nil];
   placeDetailViewController.parkingSpotObj = parkingSpot;
