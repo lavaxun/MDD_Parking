@@ -219,6 +219,10 @@
 #pragma adding new place delegate
 - (void)addNewParkingSpot:(MDDParkingSpot*)place
 {
+    [MDDParkingSpot addNewParkingSpotsWithBlock:^(MDDParkingSpot *post, NSError *error) {
+        NSLog(@"posted");
+    } byUsing:place];
+    
     NSMutableArray *mutable = [NSMutableArray arrayWithArray:_arr];
     [mutable addObject:place];
     _arr = [NSArray arrayWithArray:mutable];
