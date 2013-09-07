@@ -11,6 +11,7 @@
 #import <MapKit/MapKit.h>
 #import "DDAnnotation.h"
 #import "MDDAnnotation.h"
+#import "MDDParkingSpot.h"
 #import "PlaceDetailViewController.h"
 
 @interface MapsViewController ()
@@ -111,13 +112,20 @@
 
 -(void)addParkingSpotsToMapView {
   
-  NSLog(@"self.arr : %@", self.arr);
+  //NSLog(@"self.arr : %@", self.arr);
+  
+  CLLocationCoordinate2D coordinate2D;
+
   
   for(int i=0; i < [self.arr count]; i++ ){
 	
 	MDDAnnotation *annotation = (MDDAnnotation *)[self.arr objectAtIndex:i];
-//	annotation.title = annotation.title;
-//	annotation.subtitle = annotation.subtitle;
+
+	  coordinate2D = [self.aMapView centerCoordinate];
+	  coordinate2D.latitude = annotation.coordinate.latitude + (arc4random()%10)/100.0f;
+	  coordinate2D.longitude = annotation.coordinate.longitude + (arc4random()%10)/100.0f;
+
+	  annotation.coordinate = coordinate2D;
 	
 	[self.aMapView addAnnotation:annotation];
   }
@@ -129,12 +137,16 @@
 
 - (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control {
   
-   //DDAnnotation *location = (DDAnnotation *)view.annotation;
-  //NSLog(@"Location Tapped : %@", NSStringFromCGPoint(location.coordinate));
+  MDDAnnotation* annotation = (MDDAnnotation*)view;
+  MDDParkingSpot *parkingSpot = (MDDParkingSpot *)annotation.objectX;
   
-  NSLog(@"Annotation Tapped");
+  
+  NSLog(@"Annotation Tapped : %@", parkingSpot);
+  
+//  return;
   
   PlaceDetailViewController *placeDetailViewController = [[PlaceDetailViewController alloc] initWithNibName:@"PlaceDetailViewController" bundle:nil];
+  placeDetailViewController.parkingSpotObj = parkingSpot;
   [self.navigationController pushViewController:placeDetailViewController animated:YES];
 }
 
@@ -238,7 +250,13 @@
   
   //8
   static NSString *identifier = @"myAnnotation";
+  //MKPinAnnotationView * annotationView = (MKPinAnnotationView*)[self.aMapView dequeueReusableAnnotationViewWithIdentifier:identifier];
+  
   MKPinAnnotationView * annotationView = (MKPinAnnotationView*)[self.aMapView dequeueReusableAnnotationViewWithIdentifier:identifier];
+
+  
+  
+  
   if (!annotationView)
   {
 	//9
