@@ -312,16 +312,13 @@
 - (void)addNewParkingSpot:(MDDParkingSpot*)place
 {
     [MDDParkingSpot addNewParkingSpotsWithBlock:^(MDDParkingSpot *post, NSError *error) {
-<<<<<<< HEAD
         NSLog(@"posted : %f, %f", post.lat, post.lng);
-=======
 
         NSMutableArray *mutable = [NSMutableArray arrayWithArray:_arr];
         [mutable addObject:post];
         _arr = [NSArray arrayWithArray:mutable];
         [self.tableView reloadData];
 
->>>>>>> 1aea34f620cab4bf28a70827eb638fd72d658e91
     } byUsing:place];
     
 }
