@@ -39,7 +39,6 @@
 		5A56FE9917DB1F28002C0B50 /* MapsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A56FE8C17DB1F28002C0B50 /* MapsViewController.m */; };
 		5A56FE9A17DB1F28002C0B50 /* MapsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A56FE8D17DB1F28002C0B50 /* MapsViewController.xib */; };
 		5A56FE9B17DB1F28002C0B50 /* PlaceDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A56FE8F17DB1F28002C0B50 /* PlaceDetailViewController.m */; };
-		5A56FE9C17DB1F28002C0B50 /* PlaceDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A56FE9017DB1F28002C0B50 /* PlaceDetailViewController.xib */; };
 		5A56FE9F17DB1F28002C0B50 /* AddNewPlaceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A56FE9517DB1F28002C0B50 /* AddNewPlaceViewController.m */; };
 		5A56FEA017DB1F28002C0B50 /* AddNewPlaceViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A56FE9617DB1F28002C0B50 /* AddNewPlaceViewController.xib */; };
 		A1785E3717DB347B0044CC5A /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1785E3617DB347B0044CC5A /* QuartzCore.framework */; };
@@ -110,7 +109,6 @@
 		5A56FE8D17DB1F28002C0B50 /* MapsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MapsViewController.xib; sourceTree = "<group>"; };
 		5A56FE8E17DB1F28002C0B50 /* PlaceDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaceDetailViewController.h; sourceTree = "<group>"; };
 		5A56FE8F17DB1F28002C0B50 /* PlaceDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaceDetailViewController.m; sourceTree = "<group>"; };
-		5A56FE9017DB1F28002C0B50 /* PlaceDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlaceDetailViewController.xib; sourceTree = "<group>"; };
 		5A56FE9417DB1F28002C0B50 /* AddNewPlaceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddNewPlaceViewController.h; sourceTree = "<group>"; };
 		5A56FE9517DB1F28002C0B50 /* AddNewPlaceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddNewPlaceViewController.m; sourceTree = "<group>"; };
 		5A56FE9617DB1F28002C0B50 /* AddNewPlaceViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddNewPlaceViewController.xib; sourceTree = "<group>"; };
@@ -217,7 +215,6 @@
 				5A56FE8D17DB1F28002C0B50 /* MapsViewController.xib */,
 				5A56FE8E17DB1F28002C0B50 /* PlaceDetailViewController.h */,
 				5A56FE8F17DB1F28002C0B50 /* PlaceDetailViewController.m */,
-				5A56FE9017DB1F28002C0B50 /* PlaceDetailViewController.xib */,
 				A1785E5D17DB4FB20044CC5A /* AddingNewPlace.h */,
 				A1785E4A17DB351D0044CC5A /* AddMarkerViewController.h */,
 				A1785E4B17DB351D0044CC5A /* AddMarkerViewController.m */,
@@ -358,7 +355,6 @@
 				5A56FE8717DB1F19002C0B50 /* places-get.json in Resources */,
 				5A56FE9817DB1F28002C0B50 /* PlacesViewController.xib in Resources */,
 				5A56FE9A17DB1F28002C0B50 /* MapsViewController.xib in Resources */,
-				5A56FE9C17DB1F28002C0B50 /* PlaceDetailViewController.xib in Resources */,
 				5A56FEA017DB1F28002C0B50 /* AddNewPlaceViewController.xib in Resources */,
 				A1785E4417DB34A60044CC5A /* Pin.png in Resources */,
 				A1785E4517DB34A60044CC5A /* PinDown1.png in Resources */,
