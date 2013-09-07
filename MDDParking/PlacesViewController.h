@@ -7,14 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "AddingNewPlace.h"
 
 @class PlaceDetailViewController;
 @class MKMapView;
 
-@interface PlacesViewController : UIViewController
+@interface PlacesViewController : UIViewController<AddingNewPlaceDelegate>
 
 @property (strong, nonatomic) PlaceDetailViewController *detailViewController;
 @property (weak, nonatomic) IBOutlet MKMapView *aMapView;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end

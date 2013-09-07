@@ -88,13 +88,17 @@
     _lng = [[attributes valueForKeyPath:@"lat"] floatValue];
     
     NSArray* feesList = [attributes valueForKeyPath:@"fees"];
-    NSMutableArray *mutableList = [NSMutableArray arrayWithCapacity:[feesList count]];
     
-    for (NSDictionary *feeStructure in feesList) {
-        MDDFee *parkingFee = [[MDDFee alloc] initWithAttributes:feeStructure];
-        [mutableList addObject:parkingFee];
+    if(feesList)
+    {
+        NSMutableArray *mutableList = [NSMutableArray arrayWithCapacity:[feesList count]];
+        
+        for (NSDictionary *feeStructure in feesList) {
+            MDDFee *parkingFee = [[MDDFee alloc] initWithAttributes:feeStructure];
+            [mutableList addObject:parkingFee];
+        }
+        _fees = [NSArray arrayWithArray:mutableList];
     }
-    _fees = [NSArray arrayWithArray:mutableList];
     
     return self;
 }
