@@ -37,11 +37,21 @@
 		
 		NSString *str = @"";
 		MDDFee *mddFee = nil;
+		float parkingFee = 0.0f;
+		NSString *type = @"";
+	  
 		for(int i=0; i < [self.parkingSpotObj.fees count]; i++){
 	
 			mddFee = [self.parkingSpotObj.fees objectAtIndex:i];
+			parkingFee =  mddFee.fee;
 		  
-			str = [NSString stringWithFormat:@"%@%@ %@ %0.2f\n",str, mddFee.rule, mddFee.type, mddFee.fee];
+			if(parkingFee == 0.0f){
+			  type = [NSString stringWithFormat:@"%@",mddFee.type];
+			} else {
+			  type = [NSString stringWithFormat:@"RM %0.2f %@", parkingFee, mddFee.type];
+			}
+			
+			str = [NSString stringWithFormat:@"%@%@ %@\n\n",str, mddFee.rule, type];
 			
 		}
 	  
