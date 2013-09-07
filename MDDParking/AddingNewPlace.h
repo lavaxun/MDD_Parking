@@ -13,5 +13,5 @@
 @protocol AddingNewPlaceDelegate <NSObject>
 
 - (void)addNewParkingSpot:(MDDParkingSpot*)place;
-
+- (void)editParkingSpot:(MDDParkingSpot*)place andUpdateTo:(MDDParkingSpot*)target;
 @end

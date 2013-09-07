@@ -65,7 +65,7 @@
         NSArray *parkingSpotsFromResponse = [JSON valueForKeyPath:@"results"];
         NSMutableArray *mutablePosts = [NSMutableArray arrayWithCapacity:[parkingSpotsFromResponse count]];
         for (NSDictionary *attributes in parkingSpotsFromResponse) {
-            MDDParkingSpot *parkingSpot = [[MDDParkingSpot alloc] initWithAttributes:attributes];
+            MDDParkingSpot *parkingSpot = [[MDDParkingSpot alloc] initWithAttributesLong:attributes];
             [mutablePosts addObject:parkingSpot];
         }
         
@@ -125,6 +125,7 @@
 + (void)editParkingSpotsWithBlock:(void (^)(MDDParkingSpot *post, NSError *error))block byUsing:(MDDParkingSpot*)parkingSpot
 {
     NSDictionary* parameters = @{
+                                 @"id"      :   @(parkingSpot.id),
                                  @"name"    :   parkingSpot.name,
                                  @"lat"     :   @(parkingSpot.lat),
                                  @"lng"     :   @(parkingSpot.lng),
@@ -137,6 +138,7 @@
     {
         NSDictionary * tempDict = @{ [NSString stringWithFormat:@"fees[%d]", looperIndex]:
                                         @{
+                                            @"id"   : @(fee.id),
                                             @"type" : fee.type,
                                             @"rule" : fee.rule,
                                             @"fee" : @(fee.fee),
@@ -148,7 +150,7 @@
     
     [mutableDict addEntriesFromDictionary:@{ @"action": @"edit_place" }];
     
-    [[MDDAppAPIClient sharedClient] getPath:nil parameters:[NSDictionary dictionaryWithDictionary:mutableDict] success:^(AFHTTPRequestOperation *operation, id JSON) {
+    [[MDDAppAPIClient sharedClient] postPath:nil parameters:[NSDictionary dictionaryWithDictionary:mutableDict] success:^(AFHTTPRequestOperation *operation, id JSON) {
         NSDictionary *attributes = [JSON valueForKeyPath:@"results"];
         MDDParkingSpot *parkingSpot = [[MDDParkingSpot alloc] initWithAttributes:attributes];
         
@@ -162,13 +164,36 @@
     }];
 }
 
-
-- (id)initWithAttributes:(NSDictionary*) attributes
+- (id)initWithAttributesLong:(NSDictionary*) attributes
 {
     _id = [[attributes valueForKeyPath:@"id"] integerValue];
     _name = [attributes valueForKeyPath:@"name"];
     _lat = [[attributes valueForKeyPath:@"latitude"] floatValue];
     _lng = [[attributes valueForKeyPath:@"longitude"] floatValue];
+    
+    NSArray* feesList = [attributes valueForKeyPath:@"fees"];
+    
+    if(feesList)
+    {
+        NSMutableArray *mutableList = [NSMutableArray arrayWithCapacity:[feesList count]];
+        
+        for (NSDictionary *feeStructure in feesList) {
+            MDDFee *parkingFee = [[MDDFee alloc] initWithAttributes:feeStructure];
+            [mutableList addObject:parkingFee];
+        }
+        _fees = [NSArray arrayWithArray:mutableList];
+    }
+    
+    return self;
+
+}
+
+- (id)initWithAttributes:(NSDictionary*) attributes
+{
+    _id = [[attributes valueForKeyPath:@"id"] integerValue];
+    _name = [attributes valueForKeyPath:@"name"];
+    _lat = [[attributes valueForKeyPath:@"lat"] floatValue];
+    _lng = [[attributes valueForKeyPath:@"lng"] floatValue];
     
     NSArray* feesList = [attributes valueForKeyPath:@"fees"];
     

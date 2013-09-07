@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
 #import <CoreLocation/CoreLocation.h>
+#import "AddingNewPlace.h"
 
 @class DDAnnotation;
 @interface MapsViewController : UIViewController <MKMapViewDelegate, CLLocationManagerDelegate>{
@@ -18,6 +19,7 @@
 
 }
 
+@property (nonatomic, weak) id<AddingNewPlaceDelegate> delegate;
 @property (weak, nonatomic) IBOutlet MKMapView *aMapView;
 @property (strong, nonatomic) NSArray *arr;
 

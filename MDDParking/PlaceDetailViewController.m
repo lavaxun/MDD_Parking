@@ -17,9 +17,15 @@
 @end
 
 @implementation PlaceDetailViewController
+{
+    CGFloat kbHeight;
+    CGFloat kbTop;
+    UITextField *activeField;
+    int _currentState;
+}
 
 @synthesize parkingSpotObj;
-
+@synthesize scrollView = _scrollView;
 #pragma mark - Managing the detail item
 
 
@@ -29,38 +35,251 @@
 	// Do any additional setup after loading the view, typically from a nib.
 	//[self configureView];
 	self.navigationItem.title = @"Details";
+    [self registerForKeyboardNotifications];
+    
+    _currentState = 0;
+    
+    UIBarButtonItem *editButton = [[UIBarButtonItem alloc] initWithTitle:@"Edit" style:UIBarButtonItemStyleBordered target:self action:@selector(editAction)];
+    self.navigationItem.rightBarButtonItem = editButton;
 
 }
+
+// Call this method somewhere in your view controller setup code.
+- (void)registerForKeyboardNotifications
+{
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWasShown:)
+                                                 name:UIKeyboardDidShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillBeHidden:)
+                                                 name:UIKeyboardWillHideNotification object:nil];
+}
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    activeField = textField;
+}
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{
+    return !([[textField text] length] + (string.length - range.length) > 99);// not more than 99 characters
+}
+
+
+-(BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    NSInteger nextTag = textField.tag + 1;
+    UIResponder* nextResponder = [textField.superview viewWithTag:nextTag];
+    if (nextResponder) {
+        [nextResponder becomeFirstResponder];
+        return NO;
+    }
+    
+    [textField resignFirstResponder];
+//    [self doneAction];
+    
+    return YES;
+}
+
+// Called when the UIKeyboardDidShowNotification is sent.
+- (void)keyboardWasShown:(NSNotification*)aNotification
+{
+    NSDictionary* info = [aNotification userInfo];
+    CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
+    UIEdgeInsets contentInsets = UIEdgeInsetsMake(0.0, 0.0, kbSize.height, 0.0);
+    _scrollView.contentInset = contentInsets;
+    _scrollView.scrollIndicatorInsets = contentInsets;
+    
+    // If active text field is hidden by keyboard, scroll it so it's visible
+    // Your application might not need or want this behavior.
+    CGRect aRect = self.view.frame;
+    aRect.size.height -= kbSize.height;
+    if (!CGRectContainsPoint(aRect, activeField.frame.origin) ) {
+        CGPoint scrollPoint = CGPointMake(0.0, activeField.frame.origin.y-kbSize.height);
+        [_scrollView setContentOffset:scrollPoint animated:YES];
+    }
+}
+
+// Called when the UIKeyboardWillHideNotification is sent
+- (void)keyboardWillBeHidden:(NSNotification*)aNotification
+{
+    UIEdgeInsets contentInsets = UIEdgeInsetsZero;
+    _scrollView.contentInset = contentInsets;
+    _scrollView.scrollIndicatorInsets = contentInsets;
+}
+
+
+
+-(int)checkSelectedIndex:(NSString*)string
+{
+    if([string isEqualToString:@"Free"])
+    {
+        return 2;
+    }
+    else if([string isEqualToString:@"Flat"])
+    {
+        return 0;
+    }
+    else if([string isEqualToString:@"Per hour"])
+    {
+        return 1;
+    }
+    else return 0;
+
+}
+
 
 - (void)viewWillAppear:(BOOL)animated
 {
     if(self.parkingSpotObj){
-		self.parkingSpotNameLbl.text = self.parkingSpotObj.name;
-		
-		
-		NSString *str = @"";
-		MDDFee *mddFee = nil;
-		float parkingFee = 0.0f;
-		NSString *type = @"";
-        
+		self.parkingSpotName.text = self.parkingSpotObj.name;
+		      
 		for(int i=0; i < [self.parkingSpotObj.fees count]; i++){
             
-			mddFee = [self.parkingSpotObj.fees objectAtIndex:i];
-			parkingFee =  mddFee.fee;
+			MDDFee * mddFee = [self.parkingSpotObj.fees objectAtIndex:i];
             
-			if(parkingFee == 0.0f){
-                type = [NSString stringWithFormat:@"%@",mddFee.type];
-			} else {
-                type = [NSString stringWithFormat:@"RM %0.2f %@", parkingFee, mddFee.type];
-			}
-			
-			str = [NSString stringWithFormat:@"%@%@ %@\n\n",str, mddFee.rule, type];
+            if([[mddFee rule] isEqualToString:@"Weekdays"])
+            {
+                self.weekdaysRateFee.text = [NSString stringWithFormat:@"%.2f",[mddFee fee]];
+                [self.weekdaysRateType setSelectedSegmentIndex:[self checkSelectedIndex:[mddFee type]]];
+                
+//                if( [self checkSelectedIndex:[mddFee type]] == 2)
+//                    self.weekdaysRateFee.enabled = NO;
+//                else
+//                    self.weekdaysRateFee.enabled = YES;
+            }
+            else if([[mddFee rule] isEqualToString:@"Weekend"])
+            {
+                self.weekendRateFee.text = [NSString stringWithFormat:@"%.2f",[mddFee fee]];
+                [self.weekendRateType setSelectedSegmentIndex:[self checkSelectedIndex:[mddFee type]]];
+                
+//                if( [self checkSelectedIndex:[mddFee type]] == 2)
+//                    self.weekendRateFee.enabled = NO;
+//                else
+//                    self.weekendRateFee.enabled = YES;
+
+            }
+            else if([[mddFee rule] isEqualToString:@"Public Holiday"])
+            {
+                self.publicHolidayFee.text = [NSString stringWithFormat:@"%.2f",[mddFee fee]];
+                [self.publicHolidayType setSelectedSegmentIndex:[self checkSelectedIndex:[mddFee type]]];
+                
+//                if( [self checkSelectedIndex:[mddFee type]] == 2)
+//                    self.publicHolidayFee.enabled = NO;
+//                else
+//                    self.publicHolidayFee.enabled = YES;
+
+            }
 			
 		}
         
-        NSLog(@"str : %@", str);
-        self.parkingRuleLbl.text = str;
 	}
+}
+
+-(void)editAction{
+    
+    if( [self.parkingSpotName.text length] >1 )
+    {
+        NSString* weekdayData;
+        
+        if(self.weekdaysRateFee.enabled)
+        {
+            weekdayData = [self.weekdaysRateType titleForSegmentAtIndex:[self.weekdaysRateType selectedSegmentIndex]];
+        }
+        else
+        {
+            weekdayData = @"Free";
+        }
+        
+        NSString* weekendData;
+        
+        if(self.weekendRateFee.enabled)
+        {
+            weekendData = [self.weekendRateType titleForSegmentAtIndex:[self.weekendRateType selectedSegmentIndex]];
+        }
+        else
+        {
+            weekendData = @"Free";
+        }
+        
+        
+        NSString* publicHolidayData;
+        
+        if(self.publicHolidayFee.enabled)
+        {
+            publicHolidayData = [self.publicHolidayType titleForSegmentAtIndex:[self.publicHolidayType selectedSegmentIndex]];
+        }
+        else
+        {
+            publicHolidayData = @"Free";
+        }
+        
+        NSDictionary *dict = @{
+                               @"id": @(self.parkingSpotObj.id),
+                               @"name": self.parkingSpotName.text,
+                               @"lat" : @(self.parkingSpotObj.lat),
+                               @"lng" : @(self.parkingSpotObj.lng),
+                               };
+
+        NSMutableDictionary* mutableDict = [NSMutableDictionary dictionaryWithDictionary:dict];
+        NSMutableArray* mutableList = [NSMutableArray arrayWithCapacity:0];
+        int looperIndex = 0;
+        for(MDDFee* fee in self.parkingSpotObj.fees)
+        {
+            NSDictionary * tempDict;
+            
+            if([fee.rule isEqualToString:@"Weekdays"])
+            {
+                tempDict = @{ @"id"   : @(fee.id),
+                              @"type" : weekdayData,
+                              @"rule" : fee.rule,
+                              @"fee" : self.weekdaysRateFee.text,
+                                         };
+            }
+            else if([fee.rule isEqualToString:@"Weekend"])
+            {
+                tempDict = @{ @"id"   : @(fee.id),
+                              @"type" : weekendData,
+                              @"rule" : fee.rule,
+                              @"fee" : self.weekendRateFee.text,
+                              };
+                
+            }
+            else if([fee.rule isEqualToString:@"Public Holiday"])
+            {
+                tempDict = @{ @"id"   : @(fee.id),
+                              @"type" : publicHolidayData,
+                              @"rule" : fee.rule,
+                              @"fee" : self.publicHolidayFee.text,
+                              };
+                
+            }
+
+            
+            [mutableList addObject:tempDict];
+            //[mutableDict addEntriesFromDictionary:tempDict];
+            ++looperIndex;
+        }
+        
+        [mutableDict addEntriesFromDictionary:@{@"fees":mutableList}];
+        
+        MDDParkingSpot * newSpot = [[MDDParkingSpot alloc] initWithAttributes:[NSDictionary dictionaryWithDictionary:mutableDict]];
+        [self.delegate editParkingSpot:newSpot andUpdateTo:self.parkingSpotObj];
+        NSLog(@"edited a new parking spot");
+        [self.navigationController popToRootViewControllerAnimated:YES];
+    }
+    else
+    {
+        UIAlertView *alert = [[UIAlertView alloc]
+                              initWithTitle:@"Warning"
+                              message:@"The new parking spot name should not be empty."
+                              delegate:nil //or self
+                              cancelButtonTitle:@"OK"
+                              otherButtonTitles:nil];
+        
+        [alert show];
+    }
+    
 }
 
 
@@ -80,4 +299,10 @@
     return self;
 }
 							
+- (IBAction)weekdaysRateChanged:(id)sender {
+}
+- (IBAction)weekendRateChanged:(id)sender {
+}
+- (IBAction)publicHolidayRateChanged:(id)sender {
+}
 @end

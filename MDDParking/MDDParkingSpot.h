@@ -27,6 +27,7 @@
 
 + (void)editParkingSpotsWithBlock:(void (^)(MDDParkingSpot *post, NSError *error))block byUsing:(MDDParkingSpot*)parkingSpot;
 
+- (id)initWithAttributesLong:(NSDictionary*) attributes;
 - (id)initWithAttributes:(NSDictionary*) attributes;
 
 @end

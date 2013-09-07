@@ -44,6 +44,7 @@
     self.weekendFees.delegate = self;
     self.publicHolidayFees.delegate = self;
     self.name.delegate = self;
+
     
     
   self.navigationItem.title = @"Add New Place";
@@ -122,6 +123,42 @@
     
     if( [self.name.text length] >1 )
     {
+        
+        NSString* weekdayData;
+        
+        if(self.weekdayFees.enabled)
+        {
+            weekdayData = [self.weekdayType titleForSegmentAtIndex:[self.weekdayType selectedSegmentIndex]];
+        }
+        else
+        {
+            weekdayData = @"Free";
+        }
+        
+        NSString* weekendData;
+        
+        if(self.weekendType.enabled)
+        {
+            weekendData = [self.weekendType titleForSegmentAtIndex:[self.weekendType selectedSegmentIndex]];
+        }
+        else
+        {
+            weekendData = @"Free";
+        }
+        
+        
+        NSString* publicHolidayData;
+        
+        if(self.publicHolidayFees.enabled)
+        {
+            publicHolidayData = [self.publicHolidayType titleForSegmentAtIndex:[self.publicHolidayType selectedSegmentIndex]];
+        }
+        else
+        {
+            publicHolidayData = @"Free";
+        }
+        
+        
     NSDictionary *dict = @{
                            @"id": @(12313),
                            @"name": self.name.text,
@@ -129,18 +166,18 @@
                            @"lng" : @(self.coordinate.longitude),
                            @"fees" : @[
                                        @{
-                                           @"type" : [self.weekdayType titleForSegmentAtIndex:[self.weekdayType selectedSegmentIndex]],
-                                           @"rule" : @"weekdays",
+                                           @"type" : weekdayData,
+                                           @"rule" : @"Weekdays",
                                            @"fee" : self.weekdayFees.text
                                        },
                                        @{
-                                           @"type" : [self.weekendType titleForSegmentAtIndex:[self.weekendType selectedSegmentIndex]],
-                                           @"rule" : @"weekend",
+                                           @"type" : weekendData,
+                                           @"rule" : @"Weekend",
                                            @"fee" : self.weekendFees.text
                                         },
                                        @{
-                                           @"type" : [self.publicHolidayType titleForSegmentAtIndex:[self.publicHolidayType selectedSegmentIndex]],
-                                           @"rule" : @"public-holiday",
+                                           @"type" : publicHolidayData,
+                                           @"rule" : @"Public Holiday",
                                            @"fee" : self.publicHolidayFees.text
                                         },
 
@@ -173,5 +210,39 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+- (IBAction)weekdaysRateChanged:(id)sender {
+    if([self.weekdayType selectedSegmentIndex] == 2)    // free
+    {
+        [self.weekdayFees setEnabled:NO];
+    }
+    else
+    {
+        [self.weekdayFees setEnabled:YES];
+    }
+}
+
+- (IBAction)weekendRateChanged:(id)sender {
+    if([self.weekendType selectedSegmentIndex] == 2)    // free
+    {
+        [self.weekendFees setEnabled:NO];
+    }
+    else
+    {
+        [self.weekendFees setEnabled:YES];
+    }
+}
+
+- (IBAction)publicHolidayRateChanged:(id)sender {
+    if([self.publicHolidayType selectedSegmentIndex] == 2)    // free
+    {
+        [self.publicHolidayFees setEnabled:NO];
+    }
+    else
+    {
+        [self.publicHolidayFees setEnabled:YES];
+    }
+}
+
 
 @end

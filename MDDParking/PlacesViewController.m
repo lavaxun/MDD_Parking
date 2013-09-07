@@ -19,6 +19,7 @@
 
 @interface PlacesViewController ()<CLLocationManagerDelegate> {
     CLLocationManager *_locationManager;
+    int _selectedRow;
 }
 @end
 
@@ -134,7 +135,8 @@
   NSMutableArray *annotationsArr = [self getAnnotationsArr];
   
   MapsViewController *mapsViewController = [[MapsViewController alloc] initWithNibName:@"MapsViewController" bundle:nil];
-  mapsViewController.arr = annotationsArr;
+	mapsViewController.arr = annotationsArr;
+    mapsViewController.delegate = self;
   [self.navigationController pushViewController:mapsViewController animated:YES];
 }
 
@@ -238,14 +240,14 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (!self.detailViewController) {
-        self.detailViewController = [[PlaceDetailViewController alloc] initWithNibName:@"PlaceDetailViewController" bundle:nil];
-    }
-  
+	self.detailViewController = [[PlaceDetailViewController alloc] initWithNibName:@"PlaceDetailViewController" bundle:nil];
   
 	[tableView deselectRowAtIndexPath:indexPath animated:YES];
   
+	self.detailViewController.delegate = self;
+
 	MDDParkingSpot *mddParkingSpot = (MDDParkingSpot *)[self.arr objectAtIndex:indexPath.row];
+    _selectedRow = [indexPath row];
 	self.detailViewController.parkingSpotObj = mddParkingSpot;
     [self.navigationController pushViewController:self.detailViewController animated:YES];
 }
@@ -310,16 +312,37 @@
 - (void)addNewParkingSpot:(MDDParkingSpot*)place
 {
     [MDDParkingSpot addNewParkingSpotsWithBlock:^(MDDParkingSpot *post, NSError *error) {
+<<<<<<< HEAD
         NSLog(@"posted : %f, %f", post.lat, post.lng);
+=======
+
+        NSMutableArray *mutable = [NSMutableArray arrayWithArray:_arr];
+        [mutable addObject:post];
+        _arr = [NSArray arrayWithArray:mutable];
+        [self.tableView reloadData];
+
+>>>>>>> 1aea34f620cab4bf28a70827eb638fd72d658e91
     } byUsing:place];
     
-    NSMutableArray *mutable = [NSMutableArray arrayWithArray:_arr];
-    [mutable addObject:place];
-    _arr = [NSArray arrayWithArray:mutable];
-    [self.tableView reloadData];
 }
 
+- (void)editParkingSpot:(MDDParkingSpot*)place andUpdateTo:(MDDParkingSpot*)target
+{
+//    __block MDDParkingSpot* weakTarget = target;
+    [MDDParkingSpot editParkingSpotsWithBlock:^(MDDParkingSpot *post, NSError *error) {
 
+        NSMutableArray* mut = [NSMutableArray arrayWithArray:self.arr];
+        [mut setObject:post atIndexedSubscript:_selectedRow];
+        self.arr = [NSArray arrayWithArray:mut];
+//        self.arr
+//        NSMutableArray *mutable = [NSMutableArray arrayWithArray:_arr];
+///        [mutable addObject:post];
+//        _arr = [NSArray arrayWithArray:mutable];
+        [self.tableView reloadData];
+        
+    } byUsing:place];
+    
+}
 
 @end
 

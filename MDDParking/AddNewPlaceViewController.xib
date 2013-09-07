@@ -2,10 +2,10 @@
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">1552</int>
-		<string key="IBDocument.SystemVersion">11G63</string>
+		<string key="IBDocument.SystemVersion">12E55</string>
 		<string key="IBDocument.InterfaceBuilderVersion">3084</string>
-		<string key="IBDocument.AppKitVersion">1138.51</string>
-		<string key="IBDocument.HIToolboxVersion">569.00</string>
+		<string key="IBDocument.AppKitVersion">1187.39</string>
+		<string key="IBDocument.HIToolboxVersion">626.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 			<string key="NS.object.0">2083</string>
@@ -89,7 +89,6 @@
 								<string key="NSFrame">{{17, 32}, {283, 21}}</string>
 								<reference key="NSSuperview" ref="743611746"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -394,7 +393,6 @@
 								<string key="NSFrame">{{28, 496}, {265, 21}}</string>
 								<reference key="NSSuperview" ref="743611746"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -531,6 +529,33 @@
 					</object>
 					<int key="connectionID">346</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">weekdaysRateChanged:</string>
+						<reference key="source" ref="499810750"/>
+						<reference key="destination" ref="372490531"/>
+						<int key="IBEventType">13</int>
+					</object>
+					<int key="connectionID">364</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">weekendRateChanged:</string>
+						<reference key="source" ref="157605724"/>
+						<reference key="destination" ref="372490531"/>
+						<int key="IBEventType">13</int>
+					</object>
+					<int key="connectionID">367</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">publicHolidayRateChanged:</string>
+						<reference key="source" ref="819319006"/>
+						<reference key="destination" ref="372490531"/>
+						<int key="IBEventType">13</int>
+					</object>
+					<int key="connectionID">368</int>
+				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<array key="orderedObjects">
@@ -641,22 +666,6 @@
 								<reference key="containingView" ref="743611746"/>
 								<int key="scoringType">6</int>
 								<float key="scoringTypeFloat">24</float>
-								<int key="contentType">2</int>
-							</object>
-							<object class="IBNSLayoutConstraint" id="819790974">
-								<reference key="firstItem" ref="741235124"/>
-								<int key="firstAttribute">9</int>
-								<int key="relation">0</int>
-								<reference key="secondItem" ref="743611746"/>
-								<int key="secondAttribute">9</int>
-								<float key="multiplier">1</float>
-								<object class="IBLayoutConstant" key="constant">
-									<double key="value">0.0</double>
-								</object>
-								<float key="priority">1000</float>
-								<reference key="containingView" ref="743611746"/>
-								<int key="scoringType">5</int>
-								<float key="scoringTypeFloat">22</float>
 								<int key="contentType">2</int>
 							</object>
 							<object class="IBNSLayoutConstraint" id="607638597">
@@ -962,6 +971,22 @@
 								<int key="scoringType">6</int>
 								<float key="scoringTypeFloat">24</float>
 								<int key="contentType">3</int>
+							</object>
+							<object class="IBNSLayoutConstraint" id="819790974">
+								<reference key="firstItem" ref="499810750"/>
+								<int key="firstAttribute">9</int>
+								<int key="relation">0</int>
+								<reference key="secondItem" ref="743611746"/>
+								<int key="secondAttribute">9</int>
+								<float key="multiplier">1</float>
+								<object class="IBLayoutConstant" key="constant">
+									<double key="value">0.0</double>
+								</object>
+								<float key="priority">1000</float>
+								<reference key="containingView" ref="743611746"/>
+								<int key="scoringType">5</int>
+								<float key="scoringTypeFloat">22</float>
+								<int key="contentType">2</int>
 							</object>
 							<object class="IBNSLayoutConstraint" id="646328922">
 								<reference key="firstItem" ref="743611746"/>
@@ -1525,11 +1550,6 @@
 						<reference key="parent" ref="743611746"/>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">344</int>
-						<reference key="object" ref="819790974"/>
-						<reference key="parent" ref="743611746"/>
-					</object>
-					<object class="IBObjectRecord">
 						<int key="objectID">132</int>
 						<reference key="object" ref="539832921"/>
 						<reference key="parent" ref="499810750"/>
@@ -1537,6 +1557,11 @@
 					<object class="IBObjectRecord">
 						<int key="objectID">284</int>
 						<reference key="object" ref="58644495"/>
+						<reference key="parent" ref="743611746"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">374</int>
+						<reference key="object" ref="819790974"/>
 						<reference key="parent" ref="743611746"/>
 					</object>
 				</array>
@@ -1640,8 +1665,8 @@
 				<string key="336.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="339.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="343.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-				<string key="344.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="345.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="374.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="81.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<array class="NSMutableArray" key="81.IBViewMetadataConstraints">
 					<reference ref="58644495"/>
@@ -1653,6 +1678,7 @@
 					<reference ref="429295001"/>
 					<reference ref="652494369"/>
 					<reference ref="646328922"/>
+					<reference ref="819790974"/>
 					<reference ref="869030934"/>
 					<reference ref="1005875300"/>
 					<reference ref="389108612"/>
@@ -1672,7 +1698,6 @@
 					<reference ref="726618574"/>
 					<reference ref="271018070"/>
 					<reference ref="607638597"/>
-					<reference ref="819790974"/>
 					<reference ref="861370248"/>
 				</array>
 				<boolean value="NO" key="81.IBViewMetadataTranslatesAutoresizingMaskIntoConstraints"/>
@@ -1683,19 +1708,37 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">363</int>
+			<int key="maxID">374</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
 				<object class="IBPartialClassDescription">
 					<string key="className">AddNewPlaceViewController</string>
 					<string key="superclassName">UIViewController</string>
+					<dictionary class="NSMutableDictionary" key="actions">
+						<string key="publicHolidayRateChanged:">id</string>
+						<string key="weekdaysRateChanged:">id</string>
+						<string key="weekendRateChanged:">id</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="actionInfosByName">
+						<object class="IBActionInfo" key="publicHolidayRateChanged:">
+							<string key="name">publicHolidayRateChanged:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="weekdaysRateChanged:">
+							<string key="name">weekdaysRateChanged:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="weekendRateChanged:">
+							<string key="name">weekendRateChanged:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</dictionary>
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="name">UITextField</string>
 						<string key="publicHolidayFees">UITextField</string>
 						<string key="publicHolidayType">UISegmentedControl</string>
 						<string key="scrollView">UIScrollView</string>
-						<string key="streetName">UILabel</string>
 						<string key="weekdayFees">UITextField</string>
 						<string key="weekdayType">UISegmentedControl</string>
 						<string key="weekendFees">UITextField</string>
@@ -1717,10 +1760,6 @@
 						<object class="IBToOneOutletInfo" key="scrollView">
 							<string key="name">scrollView</string>
 							<string key="candidateClassName">UIScrollView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="streetName">
-							<string key="name">streetName</string>
-							<string key="candidateClassName">UILabel</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="weekdayFees">
 							<string key="name">weekdayFees</string>

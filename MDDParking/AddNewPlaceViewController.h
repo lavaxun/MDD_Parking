@@ -21,11 +21,14 @@
 
 @property (weak, nonatomic) IBOutlet UISegmentedControl *weekdayType;
 @property (weak, nonatomic) IBOutlet UITextField *weekdayFees;
+- (IBAction)weekdaysRateChanged:(id)sender;
 
 @property (weak, nonatomic) IBOutlet UISegmentedControl *weekendType;
 @property (weak, nonatomic) IBOutlet UITextField *weekendFees;
+- (IBAction)weekendRateChanged:(id)sender;
 
 @property (weak, nonatomic) IBOutlet UISegmentedControl *publicHolidayType;
 @property (weak, nonatomic) IBOutlet UITextField *publicHolidayFees;
+- (IBAction)publicHolidayRateChanged:(id)sender;
 
 @end
