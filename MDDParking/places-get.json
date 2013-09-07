@@ -1,0 +1,40 @@
+{
+    "results": [{
+        "id": "12345",
+        "name": "Bukit Bintang",
+        "lat": "-12.31212",
+        "lng": "141.311444",
+        "fees": [{
+            "id" : "123123",
+            "type": "free",
+            "rule": "Weekend & Public Holiday",
+            "fee": "0.00"
+        }, {
+            "id" : "54934",
+            "type": "per-hour",
+                "rule": "First hour entry on Weekdays",
+            "fee": "3.00"
+        }, {
+            "id" : "50238",
+            "type" : "per-hour",
+                "rule": "Subsequent hour entry on Weekdays",
+            "fee": "1.00"
+        }]
+    }, {
+        "id": "7493",
+        "name": "Kelana Jaya",
+        "lat": "-145.3",
+        "lng": "11.44",
+        "fees": [{
+            "id" : "50482",
+            "type" : "flat",
+            "rule": "Per entry on Weekend & Public Holiday",
+            "fee": "2.00"
+        }, {
+            "id" : "5832",
+            "type" : "flat",
+            "rule": "Per entry on Weekdays",
+            "fee": "4.00"
+        }]
+    }]
+}

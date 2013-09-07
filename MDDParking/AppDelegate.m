@@ -7,21 +7,38 @@
 //
 
 #import "AppDelegate.h"
-
-#import "MasterViewController.h"
+#import "AFNetworkActivityIndicatorManager.h"
+#import "MDDParkingSpot.h"
+#import "PlacesViewController.h"
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    // Override point for customization after application launch.
-
-	MasterViewController *masterViewController = [[MasterViewController alloc] initWithNibName:@"MasterViewController" bundle:nil];
-	self.navigationController = [[UINavigationController alloc] initWithRootViewController:masterViewController];
-	self.window.rootViewController = self.navigationController;
-    [self.window makeKeyAndVisible];
-    return YES;
+  __block NSArray* parkingSpots;
+  
+  [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
+  
+  [MDDParkingSpot pumpinDummyParkingSpotsWithBlock:^(NSArray *posts, NSError *error) {
+	if (error)
+	{
+	  NSLog(@"something goes wrong in here. it may relates to the places-get.json file.");
+	}
+	else
+	{
+	  parkingSpots = posts;
+	}
+  }];
+  
+  
+  self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+  // Override point for customization after application launch.
+  
+  PlacesViewController *masterViewController = [[PlacesViewController alloc] initWithNibName:@"PlacesViewController" bundle:nil];
+  self.navigationController = [[UINavigationController alloc] initWithRootViewController:masterViewController];
+  self.window.rootViewController = self.navigationController;
+  [self.window makeKeyAndVisible];
+  return YES;
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application
