@@ -49,8 +49,6 @@
   firstLaunch=YES;
   self.onlyOnce = YES;
 
-  //[self addCurrentLocationAnnotation];
-  //[self performselect]
 }
 
 
@@ -59,8 +57,13 @@
 -(void)addCurrentLocationAnnotation {
   
   CLLocation *currLocation;
-
   currLocation = [locationManager location];
+
+  MKPointAnnotation *mapPoint = [[MKPointAnnotation alloc] init];
+  mapPoint.title = @"Sentul";
+  mapPoint.subtitle = @"Kuala Lumpur";
+  mapPoint.coordinate = currLocation.coordinate;
+  [self.aMapView addAnnotation:mapPoint];
 
 }
 
@@ -75,6 +78,9 @@
   NSLog(@"Location Manager updated newLocaiton : %f, %f", newLocation.coordinate.latitude, newLocation.coordinate.longitude);
   NSLog(@"Location Manager updated oldLocation : %f, %f", oldLocation.coordinate.latitude, oldLocation.coordinate.longitude);
 
+  //[self addCurrentLocationAnnotation];
+
+  //[manager startUpdatingLocation];
 }
 
 -(void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
