@@ -17,19 +17,6 @@
 {
   [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
   
-  [MDDParkingSpot pumpinDummyParkingSpotsWithBlock:^(NSArray *posts, NSError *error) {
-	if (error)
-	{
-	  NSLog(@"something goes wrong in here. it may relates to the places-get.json file.");
-	}
-	else
-	{
-	  parkingSpots = posts;
-	  
-	}
-  }];
-  
-  
   self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
   // Override point for customization after application launch.
   

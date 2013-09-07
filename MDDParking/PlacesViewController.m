@@ -185,6 +185,8 @@
     }
     //NSDate *object = _objects[indexPath.row];
     //self.detailViewController.detailItem = object;
+	MDDParkingSpot *mddParkingSpot = (MDDParkingSpot *)[self.arr objectAtIndex:indexPath.row];
+	self.detailViewController.parkingSpotObj = mddParkingSpot;
     [self.navigationController pushViewController:self.detailViewController animated:YES];
 }
 
