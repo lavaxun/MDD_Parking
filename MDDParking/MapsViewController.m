@@ -63,8 +63,8 @@
 	// -------------- zoom in to user current location
 	MKCoordinateRegion mapRegion;
 	mapRegion.center = coordinate;
-	mapRegion.span.latitudeDelta = 0.005;
-	mapRegion.span.longitudeDelta = 0.005;
+	mapRegion.span.latitudeDelta = 0.04;
+	mapRegion.span.longitudeDelta = 0.04;
 	
 	[self.aMapView setRegion:mapRegion animated:YES];
 	
@@ -175,15 +175,23 @@
 - (void)mapView:(MKMapView *)mv didAddAnnotationViews:(NSArray *)views
 {
   
-  //Zoom back to the user location after adding a new set of annotations.
-  
-  //Get the center point of the visible map.
-//  CLLocationCoordinate2D centre = [mv centerCoordinate];
-//  MKCoordinateRegion region;
-//  region = MKCoordinateRegionMakeWithDistance(centre,50000,50000);
-//  [mv setRegion:region animated:YES];
+  MKAnnotationView *aV;
+  for (aV in views) {
+	CGRect endFrame = aV.frame;
+	
+	aV.frame = CGRectMake(aV.frame.origin.x, aV.frame.origin.y - 230.0, aV.frame.size.width, aV.frame.size.height);
+	
+	[UIView beginAnimations:nil context:NULL];
+	[UIView setAnimationDuration:0.45];
+	[UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
+	[aV setFrame:endFrame];
+	[UIView commitAnimations];
+	
+  }
   
 }
+
+
 
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation {
   
