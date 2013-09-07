@@ -21,7 +21,9 @@
 
 + (void)pumpinDummyParkingSpotsWithBlock:(void (^)(NSArray *posts, NSError *error))block;
 
-+ (void)nearestParkingSpotsWithBlock:(void (^)(NSArray *posts, NSError *error))block atCoordinate:(CLLocationCoordinate2D)coordinate withKeywords:(NSString*)searchQuery;
++ (void)nearestParkingSpotsWithBlock:(void (^)(NSArray *posts, NSError *error))block atCoordinate:(CLLocationCoordinate2D)coordinate;
+
++ (void)addNewParkingSpotsWithBlock:(void (^)(MDDParkingSpot *post, NSError *error))block byUsing:(MDDParkingSpot*)parkingSpot;
 
 - (id)initWithAttributes:(NSDictionary*) attributes;
 

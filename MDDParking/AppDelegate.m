@@ -15,26 +15,27 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-  __block NSArray* parkingSpots;
-  
   [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
-  
-  [MDDParkingSpot pumpinDummyParkingSpotsWithBlock:^(NSArray *posts, NSError *error) {
-	if (error)
-	{
-	  NSLog(@"something goes wrong in here. it may relates to the places-get.json file.");
-	}
-	else
-	{
-	  parkingSpots = posts;
-	}
-  }];
-  
   
   self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
   // Override point for customization after application launch.
   
   PlacesViewController *masterViewController = [[PlacesViewController alloc] initWithNibName:@"PlacesViewController" bundle:nil];
+  __weak typeof(masterViewController) weakMaster = masterViewController;
+    
+    [MDDParkingSpot pumpinDummyParkingSpotsWithBlock:^(NSArray *posts, NSError *error) {
+        if (error)
+        {
+            NSLog(@"something goes wrong in here. it may relates to the places-get.json file.");
+        }
+        else
+        {
+            weakMaster.arr = posts;
+            [weakMaster.tableView reloadData];
+        }
+    }];
+    
+    
   self.navigationController = [[UINavigationController alloc] initWithRootViewController:masterViewController];
   self.window.rootViewController = self.navigationController;
   [self.window makeKeyAndVisible];
