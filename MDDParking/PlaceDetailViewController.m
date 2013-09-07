@@ -41,7 +41,7 @@
 	
 			mddFee = [self.parkingSpotObj.fees objectAtIndex:i];
 		  
-			str = [NSString stringWithFormat:@"%@%@ %@ %f\n",str, mddFee.rule, mddFee.type, mddFee.fee];
+			str = [NSString stringWithFormat:@"%@%@ %@ %0.2f\n",str, mddFee.rule, mddFee.type, mddFee.fee];
 			
 		}
 	  
