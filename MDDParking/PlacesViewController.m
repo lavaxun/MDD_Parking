@@ -11,6 +11,7 @@
 #import "AddMarkerViewController.h"
 #import "MapsViewController.h"
 #import <MapKit/MapKit.h>
+#import "MDDParkingSpot.h"
 
 @interface PlacesViewController () {
     NSMutableArray *arr;
@@ -18,6 +19,7 @@
 @end
 
 @implementation PlacesViewController
+
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -72,6 +74,7 @@
 -(void)addPlaces{
  
   AddMarkerViewController *addMarkerViewController = [[AddMarkerViewController alloc] initWithNibName:@"AddMarkerViewController" bundle:nil];
+    addMarkerViewController.delegate = self;
   [self.navigationController pushViewController:addMarkerViewController animated:YES];
     
 }
@@ -157,7 +160,15 @@
     //self.detailViewController.detailItem = object;
     [self.navigationController pushViewController:self.detailViewController animated:YES];
 }
- 
+
+#pragma adding new place delegate
+- (void)addNewParkingSpot:(MDDParkingSpot*)place
+{
+    [arr addObject:[place name]];
+    [self.tableView reloadData];
+}
+
+
 
 @end
 

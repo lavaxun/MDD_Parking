@@ -125,6 +125,7 @@
 		A1785E4A17DB351D0044CC5A /* AddMarkerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddMarkerViewController.h; sourceTree = "<group>"; };
 		A1785E4B17DB351D0044CC5A /* AddMarkerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddMarkerViewController.m; sourceTree = "<group>"; };
 		A1785E4C17DB351D0044CC5A /* AddMarkerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddMarkerViewController.xib; sourceTree = "<group>"; };
+		A1785E5D17DB4FB20044CC5A /* AddingNewPlace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddingNewPlace.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -212,6 +213,7 @@
 				5A56FE8E17DB1F28002C0B50 /* PlaceDetailViewController.h */,
 				5A56FE8F17DB1F28002C0B50 /* PlaceDetailViewController.m */,
 				5A56FE9017DB1F28002C0B50 /* PlaceDetailViewController.xib */,
+				A1785E5D17DB4FB20044CC5A /* AddingNewPlace.h */,
 				A1785E4A17DB351D0044CC5A /* AddMarkerViewController.h */,
 				A1785E4B17DB351D0044CC5A /* AddMarkerViewController.m */,
 				A1785E4C17DB351D0044CC5A /* AddMarkerViewController.xib */,

@@ -8,10 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
+#import "AddingNewPlace.h"
 
 @interface AddMarkerViewController : UIViewController <MKMapViewDelegate>
 
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
-
+@property (nonatomic, weak) id<AddingNewPlaceDelegate> delegate;
 
 @end
