@@ -21,11 +21,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "MDDParking/MDDParkingSpot.m"
-         timestampString = "400285990.904173"
+         timestampString = "400296599.485942"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "151"
-         endingLineNumber = "151"
+         startingLineNumber = "154"
+         endingLineNumber = "154"
          landmarkName = "+editParkingSpotsWithBlock:byUsing:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -34,11 +34,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "MDDParking/MDDParkingSpot.m"
-         timestampString = "400285994.772334"
+         timestampString = "400296599.485942"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "152"
-         endingLineNumber = "152"
+         startingLineNumber = "155"
+         endingLineNumber = "155"
          landmarkName = "+editParkingSpotsWithBlock:byUsing:"
          landmarkType = "5">
       </FileBreakpoint>
