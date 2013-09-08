@@ -22,6 +22,10 @@
     CGFloat kbTop;
     UITextField *activeField;
     int _currentState;
+
+	UIBarButtonItem *_editButton;
+    UIBarButtonItem *_backButton;
+    UIBarButtonItem *_cancelButton;
 }
 
 @synthesize parkingSpotObj;
@@ -44,6 +48,19 @@
     UIBarButtonItem *editButton = [[UIBarButtonItem alloc] initWithTitle:@"Edit" style:UIBarButtonItemStyleBordered target:self action:@selector(editAction)];
     self.navigationItem.rightBarButtonItem = editButton;
 
+    [self registerForKeyboardNotifications];
+    
+    _currentState = 1;
+    
+    _editButton = [[UIBarButtonItem alloc] initWithTitle:@"Edit" style:UIBarButtonItemStyleBordered target:self action:@selector(editAction)];
+    self.navigationItem.rightBarButtonItem = _editButton;
+    
+    _cancelButton = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStyleBordered target:self action:@selector(cancelAction)];
+
+    
+    _backButton = self.navigationItem.leftBarButtonItem;
+
+    [self checkCurrentState];
 }
 
 // Call this method somewhere in your view controller setup code.
@@ -114,17 +131,13 @@
 
 -(int)checkSelectedIndex:(NSString*)string
 {
-    if([string isEqualToString:@"Free"])
-    {
-        return 2;
-    }
-    else if([string isEqualToString:@"Flat"])
-    {
-        return 0;
-    }
-    else if([string isEqualToString:@"Per hour"])
+  if([string isEqualToString:@"Per hour"])
     {
         return 1;
+    }
+    else if([string isEqualToString:@"Free"])
+    {
+        return 2;
     }
     else return 0;
 
@@ -140,7 +153,7 @@
             
 			MDDFee * mddFee = [self.parkingSpotObj.fees objectAtIndex:i];
             
-            if([[mddFee rule] isEqualToString:@"Weekdays"])
+            if( ([mddFee rule]) && [[mddFee rule] isEqualToString:@"Weekdays"])
             {
                 self.weekdaysRateFee.text = [NSString stringWithFormat:@"%.2f",[mddFee fee]];
                 [self.weekdaysRateType setSelectedSegmentIndex:[self checkSelectedIndex:[mddFee type]]];
@@ -150,7 +163,7 @@
 //                else
 //                    self.weekdaysRateFee.enabled = YES;
             }
-            else if([[mddFee rule] isEqualToString:@"Weekend"])
+            else if( ([mddFee rule]) && [[mddFee rule] isEqualToString:@"Weekend"])
             {
                 self.weekendRateFee.text = [NSString stringWithFormat:@"%.2f",[mddFee fee]];
                 [self.weekendRateType setSelectedSegmentIndex:[self checkSelectedIndex:[mddFee type]]];
@@ -161,7 +174,7 @@
 //                    self.weekendRateFee.enabled = YES;
 
             }
-            else if([[mddFee rule] isEqualToString:@"Public Holiday"])
+            else if( ([mddFee rule]) && [[mddFee rule] isEqualToString:@"Public Holiday"])
             {
                 self.publicHolidayFee.text = [NSString stringWithFormat:@"%.2f",[mddFee fee]];
                 [self.publicHolidayType setSelectedSegmentIndex:[self checkSelectedIndex:[mddFee type]]];
@@ -282,6 +295,217 @@
         [alert show];
     }
     
+- (void)checkCurrentState
+{
+    // if editing
+    if(_currentState == 0)
+    {
+        self.parkingSpotName.userInteractionEnabled = YES;
+        self.weekdaysRateFee.userInteractionEnabled = YES;
+        self.weekendRateFee.userInteractionEnabled = YES;
+        self.publicHolidayFee.userInteractionEnabled = YES;
+        self.weekdaysRateType.userInteractionEnabled = YES;
+        self.weekendRateType.userInteractionEnabled = YES;
+        self.publicHolidayType.userInteractionEnabled = YES;
+        
+    }
+    else
+    {
+        self.parkingSpotName.userInteractionEnabled = NO;
+        self.weekdaysRateFee.userInteractionEnabled = NO;
+        self.weekendRateFee.userInteractionEnabled = NO;
+        self.publicHolidayFee.userInteractionEnabled = NO;
+        self.weekdaysRateType.userInteractionEnabled = NO;
+        self.weekendRateType.userInteractionEnabled = NO;
+        self.publicHolidayType.userInteractionEnabled = NO;
+    }
+}
+
+-(void)cancelAction{
+    _currentState = 1;
+    [_editButton setStyle:UIBarButtonItemStyleBordered];
+    [_editButton setTitle:@"Edit"];
+    self.navigationItem.leftBarButtonItem = _backButton;
+    
+    [self checkCurrentState];
+}
+
+-(void)editAction{
+    
+    _currentState = (_currentState == 1)?0:1;
+    
+        [self checkCurrentState];
+    if(_currentState == 1)
+    {
+        [_editButton setStyle:UIBarButtonItemStyleBordered];
+        [_editButton setTitle:@"Edit"];
+        
+        if( [self.parkingSpotName.text length] >1 )
+        {
+            NSString* weekdayData;
+            
+            if(self.weekdaysRateFee.enabled)
+            {
+                weekdayData = [self.weekdaysRateType titleForSegmentAtIndex:[self.weekdaysRateType selectedSegmentIndex]];
+            }
+            else
+            {
+                weekdayData = @"Free";
+            }
+            
+            NSString* weekendData;
+            
+            if(self.weekendRateFee.enabled)
+            {
+                weekendData = [self.weekendRateType titleForSegmentAtIndex:[self.weekendRateType selectedSegmentIndex]];
+            }
+            else
+            {
+                weekendData = @"Free";
+            }
+            
+            
+            NSString* publicHolidayData;
+            
+            if(self.publicHolidayFee.enabled)
+            {
+                publicHolidayData = [self.publicHolidayType titleForSegmentAtIndex:[self.publicHolidayType selectedSegmentIndex]];
+            }
+            else
+            {
+                publicHolidayData = @"Free";
+            }
+            
+            NSDictionary *dict = @{
+                                   @"id": @(self.parkingSpotObj.id),
+                                   @"name": self.parkingSpotName.text,
+                                   @"lat" : @(self.parkingSpotObj.lat),
+                                   @"lng" : @(self.parkingSpotObj.lng),
+                                   };
+
+            NSMutableDictionary* mutableDict = [NSMutableDictionary dictionaryWithDictionary:dict];
+            NSMutableArray* mutableList = [NSMutableArray arrayWithCapacity:0];
+            
+            
+            
+            int occupied = 0;
+            
+            if(self.parkingSpotObj.fees)
+            {
+                if(([self.parkingSpotObj.fees count] > 0))
+                {
+                    occupied = [self.parkingSpotObj.fees count];
+                }
+            }
+            
+            BOOL weekdayTaken = NO;
+            BOOL weekendTaken = NO;
+            BOOL publicHolidayTaken = NO;
+            
+            
+            for( int ii = 0; ii < 3; ii++ )
+            {
+                NSDictionary * tempDict;
+                
+                if( ii < occupied )
+                {
+                    MDDFee* fee = [self.parkingSpotObj.fees objectAtIndex:ii];
+                    
+                    if([fee.rule isEqualToString:@"Weekdays"])
+                    {
+                        tempDict = @{ @"id"   : @(fee.id),
+                                      @"type" : weekdayData,
+                                      @"rule" : fee.rule,
+                                      @"fee" : self.weekdaysRateFee.text,
+                                                 };
+                        weekdayTaken = YES;
+                    }
+                    else if([fee.rule isEqualToString:@"Weekend"])
+                    {
+                        tempDict = @{ @"id"   : @(fee.id),
+                                      @"type" : weekendData,
+                                      @"rule" : fee.rule,
+                                      @"fee" : self.weekendRateFee.text,
+                                      };
+                        weekendTaken = YES;
+                    }
+                    else if([fee.rule isEqualToString:@"Public Holiday"])
+                    {
+                        tempDict = @{ @"id"   : @(fee.id),
+                                      @"type" : publicHolidayData,
+                                      @"rule" : fee.rule,
+                                      @"fee" : self.publicHolidayFee.text,
+                                      };
+                        publicHolidayTaken = YES;
+                    }
+                }
+                else
+                {
+                    if(!weekdayTaken)
+                    {
+                        tempDict = @{ @"id"   : @"",
+                                      @"type" : weekdayData,
+                                      @"rule" : @"Weekdays",
+                                      @"fee" : self.weekdaysRateFee.text,
+                                      };
+                        weekdayTaken = YES;
+                    }
+                    else                 if(!weekendTaken)
+                    {
+                        tempDict = @{ @"id"   : @"",
+                                      @"type" : weekendData,
+                                      @"rule" : @"Weekend",
+                                      @"fee" : self.weekendRateFee.text,
+                                      };
+                        weekendTaken = YES;
+                    }
+                    else                 if(!publicHolidayTaken)
+                    {
+                        tempDict = @{ @"id"   : @"",
+                                      @"type" : publicHolidayData,
+                                      @"rule" : @"Public Holiday",
+                                      @"fee" : self.publicHolidayFee.text,
+                                      };
+                        publicHolidayTaken = YES;
+                    }
+
+
+                }
+                
+                [mutableList addObject:tempDict];
+                //[mutableDict addEntriesFromDictionary:tempDict];
+            }
+            
+            [mutableDict addEntriesFromDictionary:@{@"fees":mutableList}];
+            
+            MDDParkingSpot * newSpot = [[MDDParkingSpot alloc] initWithAttributes:[NSDictionary dictionaryWithDictionary:mutableDict]];
+            [self.delegate editParkingSpot:newSpot andUpdateTo:self.parkingSpotObj];
+            NSLog(@"edited a new parking spot");
+            
+            
+            self.navigationItem.leftBarButtonItem = _backButton;
+            
+//            [self.navigationController popToRootViewControllerAnimated:YES];
+        }
+        else
+        {
+            UIAlertView *alert = [[UIAlertView alloc]
+                                  initWithTitle:@"Warning"
+                                  message:@"The new parking spot name should not be empty."
+                                  delegate:nil //or self
+                                  cancelButtonTitle:@"OK"
+                                  otherButtonTitles:nil];
+            
+            [alert show];
+        }
+    }
+    else
+    {
+        self.navigationItem.leftBarButtonItem = _cancelButton;
+        
+        [_editButton setStyle:UIBarButtonItemStyleDone];
+        [_editButton setTitle:@"Done"];
+    }
 }
 
 

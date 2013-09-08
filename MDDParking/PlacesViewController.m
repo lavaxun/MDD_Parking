@@ -344,6 +344,15 @@
 //        _arr = [NSArray arrayWithArray:mutable];
         [self.tableView reloadData];
         
+        UIAlertView *alert = [[UIAlertView alloc]
+                              initWithTitle:@"Successfully edited"
+                              message:@"This parking spot is updated."
+                              delegate:nil //or self
+                              cancelButtonTitle:@"OK"
+                              otherButtonTitles:nil];
+        
+        [alert show];
+        
     } byUsing:place];
     
 }

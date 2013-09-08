@@ -136,7 +136,9 @@
     int looperIndex = 0;
     for(MDDFee* fee in parkingSpot.fees)
     {
-        NSDictionary * tempDict = @{ [NSString stringWithFormat:@"fees[%d]", looperIndex]:
+        if(fee.id > 0)
+        {
+            NSDictionary * tempDict = @{ [NSString stringWithFormat:@"fees[%d]", looperIndex]:
                                         @{
                                             @"id"   : @(fee.id),
                                             @"type" : fee.type,
@@ -144,7 +146,24 @@
                                             @"fee" : @(fee.fee),
                                         }
                                     };
-        [mutableDict addEntriesFromDictionary:tempDict];
+
+            [mutableDict addEntriesFromDictionary:tempDict];
+        }
+        else
+        {
+            NSDictionary * tempDict = @{ [NSString stringWithFormat:@"fees[%d]", looperIndex]:
+                                             @{
+//                                                 @"id"   : @(fee.id),
+                                                 @"type" : fee.type,
+                                                 @"rule" : fee.rule,
+                                                 @"fee" : @(fee.fee),
+                                                 }
+                                         };
+            
+            [mutableDict addEntriesFromDictionary:tempDict];
+
+        }
+
         ++looperIndex;
     }
     
@@ -207,6 +226,7 @@
         }
         _fees = [NSArray arrayWithArray:mutableList];
     }
+    
     
     return self;
 }
