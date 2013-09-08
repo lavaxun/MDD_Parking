@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		5A3FFBD517DB5EB400C4386A /* MDDAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A3FFBD417DB5EB300C4386A /* MDDAnnotation.m */; };
 		5A3FFBD717DBD9C600C4386A /* PlaceDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A3FFBD617DBD9C600C4386A /* PlaceDetailViewController.xib */; };
+		5A3FFBDD17DBF9EE00C4386A /* gradient.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A3FFBDC17DBF9EE00C4386A /* gradient.png */; };
 		5A56FE3017DB1EB8002C0B50 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A56FE2F17DB1EB8002C0B50 /* UIKit.framework */; };
 		5A56FE3217DB1EB8002C0B50 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A56FE3117DB1EB8002C0B50 /* Foundation.framework */; };
 		5A56FE3417DB1EB8002C0B50 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A56FE3317DB1EB8002C0B50 /* CoreGraphics.framework */; };
@@ -59,6 +60,7 @@
 		5A3FFBD317DB5EB300C4386A /* MDDAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDDAnnotation.h; sourceTree = "<group>"; };
 		5A3FFBD417DB5EB300C4386A /* MDDAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDDAnnotation.m; sourceTree = "<group>"; };
 		5A3FFBD617DBD9C600C4386A /* PlaceDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlaceDetailViewController.xib; sourceTree = "<group>"; };
+		5A3FFBDC17DBF9EE00C4386A /* gradient.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gradient.png; sourceTree = "<group>"; };
 		5A56FE2C17DB1EB8002C0B50 /* MDDParking.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MDDParking.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A56FE2F17DB1EB8002C0B50 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		5A56FE3117DB1EB8002C0B50 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -240,6 +242,7 @@
 				5A56FE4117DB1EB9002C0B50 /* Default.png */,
 				5A56FE4317DB1EB9002C0B50 /* Default@2x.png */,
 				5A56FE4517DB1EB9002C0B50 /* Default-568h@2x.png */,
+				5A3FFBDC17DBF9EE00C4386A /* gradient.png */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -367,6 +370,7 @@
 				A1785E4917DB34A60044CC5A /* PinShadow.png in Resources */,
 				A1785E4E17DB351D0044CC5A /* AddMarkerViewController.xib in Resources */,
 				5A3FFBD717DBD9C600C4386A /* PlaceDetailViewController.xib in Resources */,
+				5A3FFBDD17DBF9EE00C4386A /* gradient.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
