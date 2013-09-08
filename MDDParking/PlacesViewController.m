@@ -190,6 +190,9 @@
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+	  
+	  cell.textLabel.font = [UIFont fontWithName:@"Arial" size:14.0f];
+	  //cell.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"gradient.png"]];
     }
 
 
@@ -202,7 +205,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
 	
-  return 100.0f;
+  return 60.0f;
 }
 
 /*
