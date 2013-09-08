@@ -171,6 +171,8 @@
     
     [[MDDAppAPIClient sharedClient] postPath:nil parameters:[NSDictionary dictionaryWithDictionary:mutableDict] success:^(AFHTTPRequestOperation *operation, id JSON) {
         NSDictionary *attributes = [JSON valueForKeyPath:@"results"];
+	  
+	  NSLog(@"attributes : %@", attributes);
         MDDParkingSpot *parkingSpot = [[MDDParkingSpot alloc] initWithAttributes:attributes];
         
         if (block) {
