@@ -18,10 +18,26 @@
 
 - (id)initWithAttributes:(NSDictionary*) attributes
 {
-    _id = [[attributes valueForKeyPath:@"id"] integerValue];
-    _type = [attributes valueForKeyPath:@"type"];
-    _rule = [attributes valueForKeyPath:@"rule"];
-    _fee = [[attributes valueForKeyPath:@"fee"] floatValue];
+	NSLog(@"attributes ++ : %@, %@", attributes, [attributes class]);
+  
+  if([attributes isKindOfClass:[NSArray class]]){
+	attributes = [(NSArray *)attributes lastObject];
+  }
+	  
+  
+  @try {
+	_id = (NSUInteger)[attributes objectForKey:@"id"];
+    _type = [attributes objectForKey:@"type"];
+    _rule = [attributes objectForKey:@"rule"];
+    _fee = [[attributes objectForKey:@"fee"] floatValue];
+  }
+  @catch (NSException *exception) {
+    NSLog(@"Exception : %@", [exception reason]);
+  }
+  @finally {
+    ;
+  }
+
     
     return self;
 }
