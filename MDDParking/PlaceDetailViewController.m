@@ -37,7 +37,6 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
-	//[self configureView];
 	self.navigationItem.title = @"Details";
 	self.navigationController.navigationBar.tintColor = [UIColor blackColor];
 
@@ -294,7 +293,8 @@
         
         [alert show];
     }
-    
+}
+
 - (void)checkCurrentState
 {
     // if editing
