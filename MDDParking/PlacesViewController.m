@@ -192,6 +192,7 @@
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 	  
 	  cell.textLabel.font = [UIFont fontWithName:@"Arial" size:14.0f];
+	  cell.detailTextLabel.numberOfLines = 0;
 	  cell.detailTextLabel.font = [UIFont fontWithName:@"Arial" size:12.0f];
 
 	  //cell.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"gradient.png"]];
@@ -202,15 +203,16 @@
 	cell.textLabel.text = [[_arr objectAtIndex:indexPath.row] name];
   
   
-  //-----------------To be modified -------------------
+  //-----------------Parking Price -------------------
   NSString *str = @"";
   MDDFee *mddFee = nil;
   float parkingFee = 0.0f;
   NSString *type = @"";
   
-  for(int i=0; i < [[[_arr objectAtIndex:indexPath.row] fees] count]; i++){
+  //for(int i=0; i < [[[_arr objectAtIndex:indexPath.row] fees] count]; i++){
 	
-	mddFee = [[[_arr objectAtIndex:indexPath.row] fees] objectAtIndex:i];
+  if([[[_arr objectAtIndex:indexPath.row] fees] count]){
+	mddFee = [[[_arr objectAtIndex:indexPath.row] fees] objectAtIndex:0];
 	parkingFee =  mddFee.fee;
 	
 	if(parkingFee == 0.0f){
@@ -219,10 +221,10 @@
 	  type = [NSString stringWithFormat:@"RM %0.2f %@", parkingFee, mddFee.type];
 	}
 	
-	str = [NSString stringWithFormat:@"%@%@ %@\n\n",str, mddFee.rule, type];
-	
+	str = [NSString stringWithFormat:@"%@ %@\n", mddFee.rule, type];
   }
-  
+  //}
+
   NSLog(@"str : %@", str);
   cell.detailTextLabel.text = str;
   //------------------------------------
