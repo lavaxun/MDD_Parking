@@ -238,8 +238,9 @@
 	  annotationView.pinColor = MKPinAnnotationColorGreen;
 	} else {
 	  annotationView.pinColor = MKPinAnnotationColorPurple;
+	  //annotationView.image = [UIImage imageNamed:@"arrest.png"];
+
 	}
-	//annotationView.image = [UIImage imageNamed:@"arrest.png"];
 	annotationView.animatesDrop = YES;
 	annotationView.canShowCallout = YES;
   }else {

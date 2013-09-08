@@ -188,16 +188,46 @@
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 	  
 	  cell.textLabel.font = [UIFont fontWithName:@"Arial" size:14.0f];
+	  cell.detailTextLabel.font = [UIFont fontWithName:@"Arial" size:12.0f];
+
 	  //cell.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"gradient.png"]];
     }
 
 
 	//NSDate *object = _objects[indexPath.row];
 	cell.textLabel.text = [[_arr objectAtIndex:indexPath.row] name];
+  
+  
+  //-----------------To be modified -------------------
+  NSString *str = @"";
+  MDDFee *mddFee = nil;
+  float parkingFee = 0.0f;
+  NSString *type = @"";
+  
+  for(int i=0; i < [[[_arr objectAtIndex:indexPath.row] fees] count]; i++){
+	
+	mddFee = [[[_arr objectAtIndex:indexPath.row] fees] objectAtIndex:i];
+	parkingFee =  mddFee.fee;
+	
+	if(parkingFee == 0.0f){
+	  type = [NSString stringWithFormat:@"%@",mddFee.type];
+	} else {
+	  type = [NSString stringWithFormat:@"RM %0.2f %@", parkingFee, mddFee.type];
+	}
+	
+	str = [NSString stringWithFormat:@"%@%@ %@\n\n",str, mddFee.rule, type];
+	
+  }
+  
+  NSLog(@"str : %@", str);
+  cell.detailTextLabel.text = str;
+  //------------------------------------
+  
+  
     return cell;
 }
 

@@ -222,7 +222,8 @@
     [_editButton setStyle:UIBarButtonItemStyleBordered];
     [_editButton setTitle:@"Edit"];
     self.navigationItem.leftBarButtonItem = _backButton;
-    
+	[_editButton setTintColor:[UIColor blackColor]];
+
     [self checkCurrentState];
 }
 
@@ -380,8 +381,7 @@
             
             
             self.navigationItem.leftBarButtonItem = _backButton;
-            
-//            [self.navigationController popToRootViewControllerAnimated:YES];
+			[_editButton setTintColor:[UIColor blackColor]];
         }
         else
         {
@@ -400,6 +400,7 @@
         self.navigationItem.leftBarButtonItem = _cancelButton;
         
         [_editButton setStyle:UIBarButtonItemStyleDone];
+		[_editButton setTintColor:[UIColor blueColor]];
         [_editButton setTitle:@"Done"];
     }
 }
